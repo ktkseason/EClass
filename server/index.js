@@ -13,6 +13,8 @@ import authRoutes from "./routes/auth.js";
 import courseRoutes from "./routes/courses.js";
 import { createTeacher, updateTeacher } from "./controllers/teachers.js";
 import teacherRoutes from "./routes/teachers.js";
+import scheduleRoutes from "./routes/schedules.js";
+import testRoutes from "./routes/tests.js";
 import { verifyToken } from "./middleware/auth.js";
 
 /* Configuration */
@@ -42,13 +44,15 @@ const upload = multer({ storage });
 
 /* Routes with files */
 app.post("/auth/register", upload.single("picture"), register);
-app.post("/teachers/create", verifyToken, createTeacher);
-app.post("/teachers/update/:id", verifyToken, updateTeacher);
+app.post("/teachers/create", verifyToken, upload.single("picture"), createTeacher);
+app.post("/teachers/update/:id", verifyToken, upload.single("picture"), updateTeacher);
 
 /* Routes */
 app.use("/auth", authRoutes);
 app.use("/courses", courseRoutes);
 app.use("/teachers", teacherRoutes);
+app.use("/schedules", scheduleRoutes);
+app.use("/tests", testRoutes);
 
 /* Mongoose setup */
 const PORT = process.env.PORT || 6001;

@@ -6,8 +6,8 @@ const router = express.Router();
 
 
 router.post("/create", verifyToken, createCourse);
-router.get("/", verifyToken, readCourses);
-router.get("/:id", verifyToken, readCourse);
+router.get("/", readCourses);
+router.get("/:id", readCourse);
 router.post("/update/:id", verifyToken, updateCourse);
 router.get("/delete/:id", verifyToken, deleteCourse);
 
