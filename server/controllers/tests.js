@@ -53,9 +53,20 @@ export const readTests = async (req, res) => {
     }
 }
 
+export const readTest = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const test = await Test.findById(id);
+
+        res.status(200).json(test);
+    } catch (err) {
+        res.status(404).json({ error: err.message });
+    }
+}
+
 export const readTestRandom = async (req, res) => {
     try {
-        console.log("i'll think about it.")
+        res.status(200).json({ message: "I'll think about it." })
     } catch (err) {
         res.status(404).json({ error: err.message });
     }
@@ -92,10 +103,13 @@ export const updateTest = async (req, res) => {
             }
         ];
 
-        const updatedTest = await Test.findByIdAndUpdate({
-            question,
-            answers
-        });
+        const updatedTest = await Test.findByIdAndUpdate(
+            id,
+            {
+                question,
+                answers
+            }
+        );
 
         res.status(201).json(updatedTest);
     } catch (err) {

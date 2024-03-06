@@ -54,9 +54,9 @@ const ScheduleSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        registeredNumbers: {
-            type: Number,
-            default: 0,
+        registeredStudents: {
+            type: Array,
+            default: [],
         },
         description: {
             type: String,

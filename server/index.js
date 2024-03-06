@@ -15,6 +15,11 @@ import { createTeacher, updateTeacher } from "./controllers/teachers.js";
 import teacherRoutes from "./routes/teachers.js";
 import scheduleRoutes from "./routes/schedules.js";
 import testRoutes from "./routes/tests.js";
+import eduBackgroundRoutes from "./routes/eduBackgrounds.js";
+import levelRoutes from "./routes/levels.js";
+import prepRoutes from "./routes/preps.js";
+import emotionRoutes from "./routes/emotions.js";
+import studentRoutes from "./routes/students.js";
 import { verifyToken } from "./middleware/auth.js";
 
 /* Configuration */
@@ -47,12 +52,18 @@ app.post("/auth/register", upload.single("picture"), register);
 app.post("/teachers/create", verifyToken, upload.single("picture"), createTeacher);
 app.post("/teachers/update/:id", verifyToken, upload.single("picture"), updateTeacher);
 
+
 /* Routes */
 app.use("/auth", authRoutes);
 app.use("/courses", courseRoutes);
 app.use("/teachers", teacherRoutes);
 app.use("/schedules", scheduleRoutes);
 app.use("/tests", testRoutes);
+app.use("/eduBackgrounds", eduBackgroundRoutes);
+app.use("/levels", levelRoutes);
+app.use("/preps", prepRoutes);
+app.use("/emotions", emotionRoutes);
+app.use("/students", studentRoutes);
 
 /* Mongoose setup */
 const PORT = process.env.PORT || 6001;
