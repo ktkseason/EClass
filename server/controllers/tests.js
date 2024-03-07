@@ -111,7 +111,7 @@ export const updateTest = async (req, res) => {
             }
         );
 
-        res.status(201).json(updatedTest);
+        res.status(200).json(updatedTest);
     } catch (err) {
         res.status(409).json({ error: err.message });
     }

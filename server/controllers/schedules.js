@@ -108,6 +108,35 @@ export const updateSchedule = async (req, res) => {
     }
 }
 
+export const updateScheduleRegisteredStudents = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const {
+            StudentId,
+            StudentFirstName,
+            StudentLastName,
+        } = req.body;
+
+        const updatedSchedule = await Schedule.findByIdAndUpdate(
+            id,
+            {
+                registeredStudents: [
+                    ...
+                    {
+                        StudentId,
+                        StudentFirstName,
+                        StudentLastName,
+                    }
+                ]
+            },
+            { new: true }
+        );
+        res.status(200).json(updatedSchedule);
+    } catch (err) {
+        res.status(409).json({ error: err.message });
+    }
+}
+
 /* Delete */
 export const deleteSchedule = async (req, res) => {
     try {

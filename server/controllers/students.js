@@ -48,7 +48,7 @@ export const updateStudent = async (req, res) => {
             { new: true }
         );
 
-        res.status(201).json(updatedStudent);
+        res.status(200).json(updatedStudent);
     } catch (err) {
         res.status(409).json({ error: err.message });
     }
@@ -63,7 +63,7 @@ export const updateStudentLevel = async (req, res) => {
             { level },
             { new: true }
         );
-        res.status(201).json(updatedStudent);
+        res.status(200).json(updatedStudent);
     } catch (err) {
         res.status(409).json({ error: err.message });
     }
@@ -92,7 +92,7 @@ export const updateStudentTestResults = async (req, res) => {
             },
             { new: true }
         );
-        res.status(201).json(updatedStudent);
+        res.status(200).json(updatedStudent);
     } catch (err) {
         res.status(409).json({ error: err.message });
     }
@@ -127,7 +127,7 @@ export const updateStudentCoursesTaken = async (req, res) => {
             },
             { new: true }
         );
-        res.status(201).json(updatedStudent);
+        res.status(200).json(updatedStudent);
     } catch (err) {
         res.status(409).json({ error: err.message });
     }
