@@ -38,26 +38,39 @@ export const register = async (req, res) => {
     }
 }
 
-/* Login ( Admin, Students ) */
+/* Login ( Students ) */
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (await Admin.findOne({ email: email })) {
-            const admin = await Admin.findOne({ email: email });
-            const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET);
-            delete admin.password;
-            res.status(200).json({ token, admin, status: "admin" });
-        } else {
-            const student = await Student.findOne({ email: email });
-            if (!student) return res.status(400).json({ msg: "Student does not exist." });
 
-            const isMatch = await bcrypt.compare(password, student.password);
-            if (!isMatch) return res.status(400).json({ msg: "Incorrect password." });
+        const student = await Student.findOne({ email: email });
+        if (!student) return res.status(400).json({ msg: "Student does not exist." });
 
-            const token = jwt.sign({ id: student._id }, process.env.JWT_SECRET);
-            delete student.password;
-            res.status(200).json({ token, student, status: "student" });
-        }
+        const isMatch = await bcrypt.compare(password, student.password);
+        if (!isMatch) return res.status(400).json({ msg: "Incorrect password." });
+
+        const token = jwt.sign({ id: student._id }, process.env.JWT_SECRET);
+        delete student.password;
+        res.status(200).json({ token, student });
+
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
+
+/* Admin Login */
+export const adminLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const admin = await Admin.findOne({ email: email });
+        if (!admin) return res.status(400).json({ msg: "Admin does not exist." });
+
+        const isMatch = await bcrypt.compare(password, admin.password);
+        if (!isMatch) return res.status(400).json({ msg: "Incorrect password." });
+
+        const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET);
+        delete admin.password;
+        res.status(200).json({ token, admin });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
