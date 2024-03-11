@@ -36,7 +36,7 @@ export default function Form() {
                     token: loggedIn.token
                 })
             );
-            navigate("/home");
+            navigate("/dashboard");
         }
     };
 
