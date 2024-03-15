@@ -13,6 +13,7 @@ export const createTeacher = async (req, res) => {
             imgPath
         } = req.body;
 
+        console.log(firstName, lastName, email, phone, employedYear, birthYear, imgPath);
         const newTeacher = new Teacher({
             firstName,
             lastName,

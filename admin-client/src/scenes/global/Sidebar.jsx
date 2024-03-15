@@ -28,7 +28,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
             style={{
                 color: colors.primary.main,
             }}
-            onClick={() => { setSelected(title); console.log(selected) }}
+            onClick={() => { setSelected(title) }}
             icon={icon}
         >
             <Typography>{title}</Typography>
@@ -79,13 +79,12 @@ export default function Sidebar() {
                                 justifyContent="space-between"
                                 alignItems="center"
                                 ml="15px"
-                                sx={{ color: colors.primary.light }}
                             >
-                                <Typography variant="h3">
+                                <Typography variant="h3" color={colors.primary.main} fontWeight="bold">
                                     EClass
                                 </Typography>
                                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                                    <MenuOutlinedIcon style={{ color: colors.primary.light }} />
+                                    <MenuOutlinedIcon style={{ color: colors.primary.main }} />
                                 </IconButton>
                             </Box>
                         )}

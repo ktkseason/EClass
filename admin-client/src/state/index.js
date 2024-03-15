@@ -31,6 +31,24 @@ export const authSlice = createSlice({
             state.token = null;
             state.status = null;
         },
+        setTeachers: (state, action) => {
+            state.teachers = action.payload.teachers;
+        },
+        setEduBackgrounds: (state, action) => {
+            state.eduBackgrounds = action.payload.eduBackgrounds;
+        },
+        setEmotions: (state, action) => {
+            state.emotions = action.payload.emotions;
+        },
+        setPreps: (state, action) => {
+            state.preps = action.payload.preps;
+        },
+        setLevels: (state, action) => {
+            state.levels = action.payload.levels;
+        },
+        setTests: (state, action) => {
+            state.tests = action.payload.tests;
+        },
         setCourses: (state, action) => {
             state.courses = action.payload.courses;
         },
@@ -44,5 +62,5 @@ export const authSlice = createSlice({
     }
 });
 
-export const { setMode, setLogin, setLogout, setCourses, setCourse } = authSlice.actions;
+export const { setMode, setLogin, setLogout, setTeachers, setEduBackgrounds, setEmotions, setPreps, setLevels, setTests, setCourses, setCourse } = authSlice.actions;
 export default authSlice.reducer;

@@ -16,7 +16,8 @@ const initialValues = {
 };
 
 export default function Form() {
-    const { palette } = useTheme();
+    const theme = useTheme();
+    const colors = theme.palette;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isNonMobile = useMediaQuery("(min-width: 600px)");
@@ -96,9 +97,9 @@ export default function Form() {
                             sx={{
                                 m: "2rem 0",
                                 p: "1rem",
-                                backgroundColor: palette.primary.main,
-                                color: palette.background.alt,
-                                "&:hover": { color: palette.primary.main },
+                                backgroundColor: colors.primary.main,
+                                color: colors.background.default,
+                                "&:hover": { color: colors.primary.main },
                             }}
                         >
                             LOGIN
