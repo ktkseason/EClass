@@ -52,38 +52,46 @@ export const themeSettings = (mode) => {
         palette: {
             mode: mode,
             ...(mode === "dark" ? {
-                    // palette values for dark mode
-                    primary: {
-                        dark: colorTokens.purple[800],
-                        main: colorTokens.purple[500],
-                        light: colorTokens.purple[200]
-                    },
-                    secondary: {
-                        dark: colorTokens.indigo[800],
-                        main: colorTokens.indigo[500],
-                        light: colorTokens.indigo[200]
-                    },
-                    background: {
-                        default: colorTokens.black[500],
-                        alt: colorTokens.black[700],
-                    } 
-                } : {
-                    // palette values for light mode
-                    primary: {
-                        dark: colorTokens.purple[200],
-                        main: colorTokens.purple[500],
-                        light: colorTokens.purple[800]
-                    },
-                    secondary: {
-                        dark: colorTokens.indigo[200],
-                        main: colorTokens.indigo[500],
-                        light: colorTokens.indigo[800]
-                    },
-                    background: {
-                        default: colorTokens.white[500],
-                        alt: colorTokens.black[500],
-                    }
-                }),
+                // palette values for dark mode
+                primary: {
+                    dark: colorTokens.purple[800],
+                    main: colorTokens.purple[500],
+                    light: colorTokens.purple[200]
+                },
+                secondary: {
+                    dark: colorTokens.indigo[800],
+                    main: colorTokens.indigo[500],
+                    light: colorTokens.indigo[200]
+                },
+                background: {
+                    default: colorTokens.black[500],
+                    alt: colorTokens.black[600],
+                },
+                text: {
+                    default: colorTokens.white[400],
+                    alt: colorTokens.white[500]
+                }
+            } : {
+                // palette values for light mode
+                primary: {
+                    dark: colorTokens.purple[200],
+                    main: colorTokens.purple[500],
+                    light: colorTokens.purple[800]
+                },
+                secondary: {
+                    dark: colorTokens.indigo[200],
+                    main: colorTokens.indigo[500],
+                    light: colorTokens.indigo[800]
+                },
+                background: {
+                    default: colorTokens.white[500],
+                    alt: colorTokens.white[400],
+                },
+                text: {
+                    default: colorTokens.black[400],
+                    alt: colorTokens.black[500],
+                }
+            }),
         },
         typography: {
             fontFamily: ["Inter", "sans-serif"].join(","),

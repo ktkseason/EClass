@@ -1,12 +1,18 @@
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import HomePage from "scenes/homePage";
-import LoginPage from "scenes/loginPage";
-import ProfilePage from "scenes/profilePage";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
+import Nav from "scenes/global/Nav"
+import Home from "scenes/home/index";
+import About from "scenes/about/index";
+import Schedules from "scenes/schedules/index";
+import Courses from "scenes/courses/index";
+import Teachers from "scenes/teachers/index";
+import Contact from "scenes/contact/index";
+import Login from "scenes/login/index";
+// import Profile from "scenes/profile/index";
 
 export default function App() {
   const mode = useSelector((state) => state.mode);
@@ -17,10 +23,16 @@ export default function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Nav />
           <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/profile/:userId" element={<ProfilePage />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/schedules" element={<Schedules />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/teachers" element={<Teachers />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            {/* <Route path="/profile/:userId" element={<Profile />} /> */}
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
