@@ -16,6 +16,7 @@ import Levels from "scenes/levels/index";
 import Tests from "scenes/tests/index";
 import Courses from "scenes/courses/index";
 import Schedules from "scenes/schedules/index";
+import Students from "scenes/students/index";
 
 export default function App() {
   const mode = useSelector((state) => state.mode);
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="/teachers" element={isAuth ? <Teachers /> : <Navigate to="/" />} />
               <Route path="/courses" element={isAuth ? <Courses /> : <Navigate to="/" />} />
               <Route path="/schedules" element={isAuth ? <Schedules /> : <Navigate to="/" />} />
+              <Route path="/students" element={isAuth ? <Students /> : <Navigate to="/" />} />
               <Route path="/eduBackgrounds" element={isAuth ? <EduBackgrounds /> : <Navigate to="/" />} />
               <Route path="/emotions" element={isAuth ? <Emotions /> : <Navigate to="/" />} />
               <Route path="/preps" element={isAuth ? <Preps /> : <Navigate to="/" />} />

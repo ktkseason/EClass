@@ -2,25 +2,25 @@ import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setTeachers } from "state";
+import { setStudents } from "state";
 
 
 export default function GridTable() {
     const dispatch = useDispatch();
-    const teachers = useSelector(state => state.teachers);
+    const students = useSelector(state => state.students);
     const token = useSelector((state) => state.token);
 
     useEffect(() => {
         (async () => {
-            const response = await fetch("http://localhost:3001/teachers/", {
+            const response = await fetch("http://localhost:3001/students/", {
                 method: "GET",
                 headers: { Authorization: `Bearer ${token}` },
             });
-            const teachers = await response.json();
-            if (teachers) {
+            const students = await response.json();
+            if (students) {
                 dispatch(
-                    setTeachers({
-                        teachers: teachers,
+                    setStudents({
+                        students: students,
                     })
                 );
             }
@@ -29,12 +29,11 @@ export default function GridTable() {
 
     const columns = [
         { field: "imgPath", headerName: 'Avatar' },
-        { field: "firstName", headerName: 'First Name' },
-        { field: "lastName", headerName: 'Last Name' },
-        { field: "birthYear", headerName: 'Birth Year' },
-        { field: "email", headerName: 'Email' },
-        { field: "phone", headerName: 'Phone' },
-        { field: "employedYear", headerName: 'Employed Year' },
+        { field: "firstName", headerName: 'First Name', flex: 1, editable: true },
+        { field: "lastName", headerName: 'Last Name', flex: 1, editable: true },
+        { field: "birthYear", headerName: 'Birth Year', flex: 1, editable: true },
+        { field: "email", headerName: 'Email', flex: 1, editable: true },
+        { field: "phone", headerName: 'Phone', flex: 1, editable: true },
     ]
 
     return (
@@ -42,7 +41,7 @@ export default function GridTable() {
             <Box height="80vh">
                 <DataGrid
                     getRowId={(row) => row._id}
-                    rows={teachers}
+                    rows={students}
                     columns={columns}
                     components={{ Toolbar: GridToolbar }}
                 />

@@ -52,6 +52,12 @@ export const authSlice = createSlice({
         setCourses: (state, action) => {
             state.courses = action.payload.courses;
         },
+        setSchedules: (state, action) => {
+            state.schedules = action.payload.schedules;
+        },
+        setStudents: (state, action) => {
+            state.students = action.payload.students;
+        },
         setCourse: (state, action) => {
             const updatedCourses = state.courses.map((course) => {
                 if (course._id === action.payload.course_id) return action.payload.course;
@@ -62,5 +68,5 @@ export const authSlice = createSlice({
     }
 });
 
-export const { setMode, setLogin, setLogout, setTeachers, setEduBackgrounds, setEmotions, setPreps, setLevels, setTests, setCourses, setCourse } = authSlice.actions;
+export const { setMode, setLogin, setLogout, setTeachers, setEduBackgrounds, setEmotions, setPreps, setLevels, setTests, setCourses, setSchedules, setStudents, setCourse } = authSlice.actions;
 export default authSlice.reducer;
