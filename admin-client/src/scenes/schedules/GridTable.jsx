@@ -25,7 +25,7 @@ export default function GridTable() {
                 );
             }
         })();
-    }, [])
+    }, [schedules])
 
     const columns = [
         { field: "courseTitle", headerName: "Course Title", editable: true },

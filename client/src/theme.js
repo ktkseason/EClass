@@ -69,7 +69,8 @@ export const themeSettings = (mode) => {
                 },
                 text: {
                     default: colorTokens.white[400],
-                    alt: colorTokens.white[500]
+                    alt: colorTokens.white[500],
+                    btn: colorTokens.white[300]
                 }
             } : {
                 // palette values for light mode
@@ -90,6 +91,7 @@ export const themeSettings = (mode) => {
                 text: {
                     default: colorTokens.black[400],
                     alt: colorTokens.black[500],
+                    btn: colorTokens.white[300]
                 }
             }),
         },

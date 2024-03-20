@@ -25,7 +25,7 @@ export default function GridTable() {
                 );
             }
         })();
-    }, [])
+    }, [courses])
 
     const columns = [
         { field: "title", headerName: "Title", flex: 2, editable: true },

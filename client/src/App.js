@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
-import Nav from "scenes/global/Nav"
+import Nav from "scenes/global/Nav";
+import Footer from "scenes/global/Footer";
 import Home from "scenes/home/index";
 import About from "scenes/about/index";
 import Schedules from "scenes/schedules/index";
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             {/* <Route path="/profile/:userId" element={<Profile />} /> */}
           </Routes>
+          <Footer />
         </ThemeProvider>
       </BrowserRouter>
     </div>

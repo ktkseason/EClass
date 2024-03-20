@@ -25,7 +25,7 @@ export default function GridTable() {
                 );
             }
         })();
-    }, [])
+    }, [teachers])
 
     const columns = [
         { field: "imgPath", headerName: 'Avatar' },

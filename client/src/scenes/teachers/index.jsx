@@ -1,5 +1,7 @@
 export default function Teachers() {
     return (
-        <div>Teachers</div>
+        <div style={{
+            paddingTop: "6rem"
+        }}>Teachers</div>
     )
 }

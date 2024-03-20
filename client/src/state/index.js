@@ -4,6 +4,7 @@ const initialState = {
     mode: "light",
     user: null,
     token: null,
+    latestSchedule: null,
     courses: [],
     eduBackgrounds: [],
     emotions: [],
@@ -31,18 +32,11 @@ export const authSlice = createSlice({
             state.token = null;
             state.status = null;
         },
-        setCourses: (state, action) => {
-            state.courses = action.payload.courses;
-        },
-        setCourse: (state, action) => {
-            const updatedCourses = state.courses.map((course) => {
-                if (course._id === action.payload.course_id) return action.payload.course;
-                return course;
-            });
-            state.courses = updatedCourses;
+        setLatestSchedule: (state, action) => {
+            state.latestSchedule = action.payload.latestSchedule;
         }
     }
 });
 
-export const { setMode, setLogin, setLogout, setCourses, setCourse } = authSlice.actions;
+export const { setMode, setLogin, setLogout, setLatestSchedule } = authSlice.actions;
 export default authSlice.reducer;

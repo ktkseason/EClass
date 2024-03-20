@@ -8,6 +8,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import {
+    PersonOutlined as Person,
     Login,
     DarkMode,
     LightMode,
@@ -22,6 +23,7 @@ export default function Nav() {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isAuth = Boolean(useSelector((state) => state.token));
     const user = useSelector((state) => state.user);
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
@@ -29,7 +31,7 @@ export default function Nav() {
     const colors = theme.palette;
 
     return (
-        <Box display="flex" justifyContent="space-between" alignItems="center" padding="1rem" backgroundColor={colors.background.alt}>
+        <Box position="fixed" width="100vw" display="flex" justifyContent="space-between" alignItems="center" padding="1rem" backgroundColor={colors.background.alt} zIndex="9">
             <Box>
                 <Typography
                     fontWeight="bold"
@@ -48,7 +50,10 @@ export default function Nav() {
             </Box>
 
             {isNonMobileScreens ? (
-                <Box display="flex" justifyContent="space-between" alignContent="center" gap="1rem">
+                <Box display="flex" justifyContent="space-between" alignContent="center" gap="1rem"
+                    sx={{
+                        "& > button:hover": { backgroundColor: `${colors.background.alt}` }
+                    }}>
 
                     <Button
                         onClick={() => navigate("/about")}
@@ -126,15 +131,22 @@ export default function Nav() {
                         <Typography variant="h6">Contact</Typography>
                     </Button>
 
-                    <IconButton onClick={() => navigate("/login")}>
-                        <Login />
-                    </IconButton>
+                    {isAuth ?
+                        <IconButton onClick={() => navigate(`/profile/${user._id}`)}>
+                            {/* I guess */}
+                            <Person />
+                        </IconButton>
+                        :
+                        <IconButton onClick={() => navigate("/login")}>
+                            <Login />
+                        </IconButton>
+                    }
 
                     <IconButton onClick={() => dispatch(setMode())}>
                         {colors.mode === "dark" ? (
-                            <DarkMode sx={{ fontSize: "20px" }} />
-                        ) : (
                             <LightMode sx={{ fontSize: "20px" }} />
+                        ) : (
+                            <DarkMode sx={{ fontSize: "20px" }} />
                         )}
                     </IconButton>
 
@@ -262,18 +274,25 @@ export default function Nav() {
                             <Typography variant="h6">Contact</Typography>
                         </Button>
 
-                        <IconButton onClick={() => navigate("/login")}>
-                            <Login />
-                        </IconButton>
+                        {isAuth ?
+                            <IconButton onClick={() => navigate(`students/${user._id}`)}>
+                                {/* I guess */}
+                                <Person />
+                            </IconButton>
+                            :
+                            <IconButton onClick={() => navigate("/login")}>
+                                <Login />
+                            </IconButton>
+                        }
 
                         <IconButton
                             onClick={() => dispatch(setMode())}
                             sx={{ fontSize: "20px" }}
                         >
                             {theme.palette.mode === "dark" ? (
-                                <DarkMode sx={{ fontSize: "20px" }} />
-                            ) : (
                                 <LightMode sx={{ fontSize: "20px" }} />
+                            ) : (
+                                <DarkMode sx={{ fontSize: "20px" }} />
                             )}
                         </IconButton>
                     </Box>

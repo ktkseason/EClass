@@ -64,6 +64,15 @@ export const readSchedule = async (req, res) => {
     }
 }
 
+export const readLatestSchedule = async (req, res) => {
+    try {
+        const schedule = await Schedule.find().sort({ createdAt: -1 }).limit(1);
+        res.status(200).json(schedule);
+    } catch (err) {
+        res.status(404).json({ error: err.message });
+    }
+}
+
 /* Update */
 export const updateSchedule = async (req, res) => {
     try {
