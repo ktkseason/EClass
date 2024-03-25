@@ -26,10 +26,11 @@ export default function Home() {
                 );
             }
         })();
-    }, [])
+    }, []);
 
     return (
         <Box
+            minHeight="92vh"
             display="grid"
             gridTemplateColumns="repeat(3, minmax(0, 1fr))"
             gridAutoRows="35vh"
@@ -102,9 +103,12 @@ export default function Home() {
                             borderRadius: "7px",
                             backgroundColor: `${colors.secondary.main}`,
                             fontWeight: "bold",
-                            color: `${colors.text.btn}`
+                            color: `${colors.text.btn}`,
+                            "&:hover": {
+                                backgroundColor: `${colors.secondary.light}`
+                            }
                         }}
-                    >View More</Button>
+                    > View More</Button>
                 </Box>
             }
 
@@ -181,6 +185,6 @@ export default function Home() {
                 >Our well defined course outlines can make your learning more interesting and effective.</Typography>
 
             </Button>
-        </Box>
+        </Box >
     )
 }

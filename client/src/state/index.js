@@ -34,9 +34,18 @@ export const authSlice = createSlice({
         },
         setLatestSchedule: (state, action) => {
             state.latestSchedule = action.payload.latestSchedule;
+        },
+        setTeachers: (state, action) => {
+            state.teachers = action.payload.teachers;
+        },
+        setCourses: (state, action) => {
+            state.courses = action.payload.courses;
+        },
+        setSchedules: (state, action) => {
+            state.schedules = action.payload.schedules;
         }
     }
 });
 
-export const { setMode, setLogin, setLogout, setLatestSchedule } = authSlice.actions;
+export const { setMode, setLogin, setLogout, setLatestSchedule, setTeachers, setCourses, setSchedules } = authSlice.actions;
 export default authSlice.reducer;

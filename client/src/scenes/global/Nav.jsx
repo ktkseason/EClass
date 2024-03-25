@@ -6,9 +6,9 @@ import {
     Typography,
     useTheme,
     useMediaQuery,
+    Avatar,
 } from "@mui/material";
 import {
-    PersonOutlined as Person,
     Login,
     DarkMode,
     LightMode,
@@ -134,7 +134,7 @@ export default function Nav() {
                     {isAuth ?
                         <IconButton onClick={() => navigate(`/profile/${user._id}`)}>
                             {/* I guess */}
-                            <Person />
+                            <Avatar src={`http://localhost:3001/assets/${user.imgPath}`} />
                         </IconButton>
                         :
                         <IconButton onClick={() => navigate("/login")}>
@@ -277,7 +277,7 @@ export default function Nav() {
                         {isAuth ?
                             <IconButton onClick={() => navigate(`students/${user._id}`)}>
                                 {/* I guess */}
-                                <Person />
+                                <Avatar src={`http://localhost:3001/assets/${user.ingPath}`} />
                             </IconButton>
                             :
                             <IconButton onClick={() => navigate("/login")}>

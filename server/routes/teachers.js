@@ -4,7 +4,7 @@ import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", verifyToken, readTeachers);
+router.get("/", readTeachers);
 router.get("/:id", readTeacher);
 router.get("/delete/:id", verifyToken, deleteTeacher);
 

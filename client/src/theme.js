@@ -68,7 +68,7 @@ export const themeSettings = (mode) => {
                     alt: colorTokens.black[600],
                 },
                 text: {
-                    default: colorTokens.white[400],
+                    default: colorTokens.white[600],
                     alt: colorTokens.white[500],
                     btn: colorTokens.white[300]
                 }

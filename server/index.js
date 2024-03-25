@@ -20,6 +20,7 @@ import levelRoutes from "./routes/levels.js";
 import prepRoutes from "./routes/preps.js";
 import emotionRoutes from "./routes/emotions.js";
 import studentRoutes from "./routes/students.js";
+import feedbackRoutes from "./routes/feedbacks.js";
 import { verifyToken } from "./middleware/auth.js";
 
 /* Configuration */
@@ -64,6 +65,7 @@ app.use("/levels", levelRoutes);
 app.use("/preps", prepRoutes);
 app.use("/emotions", emotionRoutes);
 app.use("/students", studentRoutes);
+app.use("/feedbacks", feedbackRoutes);
 
 /* Mongoose setup */
 const PORT = process.env.PORT || 6001;
