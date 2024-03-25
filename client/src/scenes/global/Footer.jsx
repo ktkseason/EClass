@@ -6,7 +6,7 @@ export default function Footer() {
 
     return (
         <Box display="flex" justifyContent="center" alignItems="center" padding="0.7rem" backgroundColor={colors.background.alt}>
-            <Box><Typography color="primary" fontWeight="bold" variant="h6" display="inline">EClass</Typography> copyright &copy; 2024.</Box>
+            <Box color={colors.text.default}><Typography color="primary" fontWeight="bold" variant="h6" display="inline">EClass</Typography> copyright &copy; 2024.</Box>
         </Box >
     )
 }

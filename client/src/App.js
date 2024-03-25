@@ -13,11 +13,12 @@ import Courses from "scenes/courses/index";
 import Teachers from "scenes/teachers/index";
 import Contact from "scenes/contact/index";
 import Login from "scenes/login/index";
-// import Profile from "scenes/profile/index";
+import Profile from "scenes/profile/index";
 
 export default function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode), [mode]));
+  const isAuth = Boolean(useSelector((state) => state.token));
 
   return (
     <div className="app">
@@ -33,7 +34,8 @@ export default function App() {
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/profile/:userId" element={<Profile />} /> */}
+            <Route path="/profile" element={isAuth ? <Profile /> : <Login />} />
+            <Route path="/tests/welcome" element={isAuth ? <TestWelcome /> : <Login />} />
           </Routes>
           <Footer />
         </ThemeProvider>

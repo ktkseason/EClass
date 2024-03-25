@@ -101,11 +101,11 @@ export default function Home() {
                             fontSize: "14px",
                             paddingY: "15px",
                             borderRadius: "7px",
-                            backgroundColor: `${colors.secondary.main}`,
+                            backgroundColor: colors.secondary.main,
                             fontWeight: "bold",
-                            color: `${colors.text.btn}`,
+                            color: colors.text.btn,
                             "&:hover": {
-                                backgroundColor: `${colors.secondary.light}`
+                                backgroundColor: colors.secondary.light
                             }
                         }}
                     > View More</Button>
@@ -120,16 +120,16 @@ export default function Home() {
                     justifyContent: "start",
                     alignItems: "start",
                     height: "100%",
-                    color: `${colors.text.btn}`,
-                    backgroundColor: `${colors.secondary.main}`,
+                    color: colors.text.btn,
+                    backgroundColor: colors.secondary.main,
                     borderRadius: `15px`,
                     padding: "1.3rem",
                     transition: "0.5s ease",
                     "&:hover": {
-                        backgroundColor: `${colors.secondary.dark}`,
+                        backgroundColor: colors.secondary.dark,
                     },
                     "&:hover .header": {
-                        color: `${colors.primary.light}`
+                        color: colors.primary.light
                     },
                 }}
             >
@@ -158,16 +158,16 @@ export default function Home() {
                     justifyContent: "start",
                     alignItems: "start",
                     height: "100%",
-                    color: `${colors.text.btn}`,
-                    backgroundColor: `${colors.primary.main}`,
+                    color: colors.text.btn,
+                    backgroundColor: colors.primary.main,
                     borderRadius: `15px`,
                     padding: "1.3rem",
                     transition: "0.5s ease",
                     "&:hover": {
-                        backgroundColor: `${colors.primary.dark}`,
+                        backgroundColor: colors.primary.dark,
                     },
                     "&:hover .header": {
-                        color: `${colors.secondary.light}`
+                        color: colors.secondary.light
                     },
                 }}
             >

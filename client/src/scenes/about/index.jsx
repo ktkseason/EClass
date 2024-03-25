@@ -18,7 +18,7 @@ export default function About() {
                 alignItems="center"
                 gap="2.7rem"
             >
-                <Typography variant="h3" textAlign="center" color={colors.secondary.main} fontWeight="bold"><span style={{ textTransform: "uppercase", color: `${colors.primary.main}` }}>About</span> EClass</Typography>
+                <Typography variant="h4" textAlign="center" color={colors.secondary.main} fontWeight="bold"><span style={{ textTransform: "uppercase", color: colors.primary.main }}>About</span> EClass</Typography>
                 <Box display="flex" justifyContent="center" alignItems="center" gap="2rem" color={colors.secondary.dark}>
                     <CastForEducationIcon sx={{ width: "64px", height: "64px" }} />
                     <LightbulbIcon sx={{ width: "64px", height: "64px" }} />

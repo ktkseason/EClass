@@ -117,11 +117,12 @@ export default function Form() {
                             fullWidth
                             type="submit"
                             sx={{
-                                m: "2rem 0",
+                                fontWeight: "bold",
+                                m: "1rem 0",
                                 p: "1rem",
                                 backgroundColor: colors.primary.main,
                                 color: colors.background.default,
-                                "&:hover": { color: colors.primary.main },
+                                "&:hover": { backgroundColor: `${colors.primary.light}` },
                             }}
                         >
                             Submit

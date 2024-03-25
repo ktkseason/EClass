@@ -31,16 +31,16 @@ export default function Nav() {
     const colors = theme.palette;
 
     return (
-        <Box position="fixed" width="100vw" display="flex" justifyContent="space-between" alignItems="center" padding="1rem" backgroundColor={colors.background.alt} zIndex="9">
+        <Box position="fixed" width="100%" display="flex" justifyContent="space-between" alignItems="center" padding="0.7rem 1rem" backgroundColor={colors.background.alt} zIndex="9">
             <Box>
                 <Typography
                     fontWeight="bold"
                     variant="h3"
                     color="primary"
-                    onClick={() => navigate("/")}
+                    onClick={() => { navigate("/"); isMobileMenuToggled && setIsMobileMenuToggled(!isMobileMenuToggled) }}
                     sx={{
                         "&:hover": {
-                            color: `${colors.secondary.main}`,
+                            color: colors.secondary.main,
                             cursor: "pointer",
                         },
                     }}
@@ -50,10 +50,11 @@ export default function Nav() {
             </Box>
 
             {isNonMobileScreens ? (
-                <Box display="flex" justifyContent="space-between" alignContent="center" gap="1rem"
+                <Box display="flex" justifyContent="space-between" alignContent="center" gap="0.7rem"
                     sx={{
-                        "& > button:hover": { backgroundColor: `${colors.background.alt}` }
-                    }}>
+                        "& > button:hover": { backgroundColor: colors.background.alt }
+                    }}
+                >
 
                     <Button
                         onClick={() => navigate("/about")}
@@ -61,9 +62,9 @@ export default function Nav() {
                             display: "flex",
                             justifyContent: "center",
                             alignContent: "center",
-                            color: `${colors.text.default}`,
+                            color: colors.text.default,
                             "&:hover": {
-                                color: `${colors.secondary.main}`,
+                                color: colors.secondary.main,
                                 cursor: "pointer",
                             },
                         }}
@@ -76,9 +77,9 @@ export default function Nav() {
                             display: "flex",
                             justifyContent: "center",
                             alignContent: "center",
-                            color: `${colors.text.default}`,
+                            color: colors.text.default,
                             "&:hover": {
-                                color: `${colors.secondary.main}`,
+                                color: colors.secondary.main,
                                 cursor: "pointer",
                             },
                         }}
@@ -91,213 +92,226 @@ export default function Nav() {
                             display: "flex",
                             justifyContent: "center",
                             alignContent: "center",
-                            color: `${colors.text.default}`,
+                            color: colors.text.default,
                             "&:hover": {
-                                color: `${colors.secondary.main}`,
+                                color: colors.secondary.main,
                                 cursor: "pointer",
                             },
                         }}
                     >
                         <Typography variant="h6">Courses</Typography>
-                    </Button>
+                    </Button >
                     <Button
                         onClick={() => navigate("/teachers")}
                         sx={{
                             display: "flex",
                             justifyContent: "center",
                             alignContent: "center",
-                            color: `${colors.text.default}`,
+                            color: colors.text.default,
                             "&:hover": {
-                                color: `${colors.secondary.main}`,
+                                color: colors.secondary.main,
                                 cursor: "pointer",
                             },
                         }}
                     >
                         <Typography variant="h6">Teachers</Typography>
-                    </Button>
+                    </Button >
                     <Button
                         onClick={() => navigate("/contact")}
                         sx={{
                             display: "flex",
                             justifyContent: "center",
                             alignContent: "center",
-                            color: `${colors.text.default}`,
+                            color: colors.text.default,
                             "&:hover": {
-                                color: `${colors.secondary.main}`,
+                                color: colors.secondary.main,
                                 cursor: "pointer",
                             },
                         }}
                     >
                         <Typography variant="h6">Contact</Typography>
-                    </Button>
+                    </Button >
 
-                    {isAuth ?
-                        <IconButton onClick={() => navigate(`/profile/${user._id}`)}>
-                            {/* I guess */}
-                            <Avatar src={`http://localhost:3001/assets/${user.imgPath}`} />
-                        </IconButton>
-                        :
-                        <IconButton onClick={() => navigate("/login")}>
-                            <Login />
-                        </IconButton>
+                    {
+                        isAuth ?
+                            <IconButton onClick={() => navigate("/profile")}>
+                                {/* I guess */}
+                                <Avatar
+                                    sx={{
+                                        width: "24px",
+                                        height: "24px"
+                                    }}
+                                    src={`http://localhost:3001/assets/${user.imgPath}`}
+                                />
+                            </IconButton >
+                            :
+                            <IconButton onClick={() => navigate("/login")}>
+                                <Login />
+                            </IconButton>
                     }
 
                     <IconButton onClick={() => dispatch(setMode())}>
                         {colors.mode === "dark" ? (
-                            <LightMode sx={{ fontSize: "20px" }} />
+                            <LightMode sx={{ fontSize: "24px" }} />
                         ) : (
-                            <DarkMode sx={{ fontSize: "20px" }} />
+                            <DarkMode sx={{ fontSize: "24px" }} />
                         )}
                     </IconButton>
 
-                </Box>
+                </Box >
             ) : (
                 <IconButton
                     onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
                 >
                     <Menu />
                 </IconButton>
-            )}
+            )
+            }
 
-            {!isNonMobileScreens && isMobileMenuToggled && (
-                <Box
-                    position="fixed"
-                    right="0"
-                    bottom="0"
-                    height="100%"
-                    zIndex="10"
-                    maxWidth="500px"
-                    minWidth="300px"
-                    backgroundColor={colors.background.alt}
-                >
-                    {/* CLOSE ICON */}
-                    <Box display="flex" justifyContent="flex-end" p="1rem">
-                        <IconButton
-                            onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-                        >
-                            <Close />
-                        </IconButton>
-                    </Box>
-
-                    {/* MENU ITEMS */}
+            {
+                !isNonMobileScreens && isMobileMenuToggled && (
                     <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        gap="1rem"
+                        position="fixed"
+                        right="0"
+                        bottom="0"
+                        height="100%"
+                        zIndex="10"
+                        maxWidth="500px"
+                        minWidth="300px"
+                        backgroundColor={colors.background.alt}
                     >
-
-                        <Button
-                            fullWidth
-                            onClick={() => navigate("/about")}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignContent: "center",
-                                color: `${colors.text.default}`,
-                                py: "1rem",
-                                "&:hover": {
-                                    color: `${colors.secondary.main}`,
-                                    cursor: "pointer",
-                                },
-                            }}
-                        >
-                            <Typography variant="h6">About</Typography>
-                        </Button>
-                        <Button
-                            fullWidth
-                            onClick={() => navigate("/schedules")}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignContent: "center",
-                                color: `${colors.text.default}`,
-                                py: "1rem",
-                                "&:hover": {
-                                    color: `${colors.secondary.main}`,
-                                    cursor: "pointer",
-                                },
-                            }}
-                        >
-                            <Typography variant="h6">Schedules</Typography>
-                        </Button>
-                        <Button
-                            fullWidth
-                            onClick={() => navigate("/courses")}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignContent: "center",
-                                color: `${colors.text.default}`,
-                                py: "1rem",
-                                "&:hover": {
-                                    color: `${colors.secondary.main}`,
-                                    cursor: "pointer",
-                                },
-                            }}
-                        >
-                            <Typography variant="h6">Courses</Typography>
-                        </Button>
-                        <Button
-                            fullWidth
-                            onClick={() => navigate("/teachers")}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignContent: "center",
-                                color: `${colors.text.default}`,
-                                py: "1rem",
-                                "&:hover": {
-                                    color: `${colors.secondary.main}`,
-                                    cursor: "pointer",
-                                },
-                            }}
-                        >
-                            <Typography variant="h6">Teachers</Typography>
-                        </Button>
-                        <Button
-                            fullWidth
-                            onClick={() => navigate("/contact")}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignContent: "center",
-                                color: `${colors.text.default}`,
-                                py: "1rem",
-                                "&:hover": {
-                                    color: `${colors.secondary.main}`,
-                                    cursor: "pointer",
-                                },
-                            }}
-                        >
-                            <Typography variant="h6">Contact</Typography>
-                        </Button>
-
-                        {isAuth ?
-                            <IconButton onClick={() => navigate(`students/${user._id}`)}>
-                                {/* I guess */}
-                                <Avatar src={`http://localhost:3001/assets/${user.ingPath}`} />
+                        {/* CLOSE ICON */}
+                        <Box display="flex" justifyContent="flex-end" p="1rem">
+                            <IconButton
+                                onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+                            >
+                                <Close />
                             </IconButton>
-                            :
-                            <IconButton onClick={() => navigate("/login")}>
-                                <Login />
-                            </IconButton>
-                        }
+                        </Box>
 
-                        <IconButton
-                            onClick={() => dispatch(setMode())}
-                            sx={{ fontSize: "20px" }}
+                        {/* MENU ITEMS */}
+                        <Box
+                            display="flex"
+                            flexDirection="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            gap="1rem"
                         >
-                            {theme.palette.mode === "dark" ? (
-                                <LightMode sx={{ fontSize: "20px" }} />
-                            ) : (
-                                <DarkMode sx={{ fontSize: "20px" }} />
-                            )}
-                        </IconButton>
-                    </Box>
-                </Box>
-            )}
+
+                            <Button
+                                fullWidth
+                                onClick={() => { navigate("/about"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignContent: "center",
+                                    color: colors.text.default,
+                                    py: "1rem",
+                                    "&:hover": {
+                                        color: colors.secondary.main,
+                                        cursor: "pointer",
+                                    },
+                                }}
+                            >
+                                <Typography variant="h6">About</Typography>
+                            </Button>
+                            <Button
+                                fullWidth
+                                onClick={() => { navigate("/schedules"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignContent: "center",
+                                    color: colors.text.default,
+                                    py: "1rem",
+                                    "&:hover": {
+                                        color: colors.secondary.main,
+                                        cursor: "pointer",
+                                    },
+                                }}
+                            >
+                                <Typography variant="h6">Schedules</Typography>
+                            </Button>
+                            <Button
+                                fullWidth
+                                onClick={() => { navigate("/courses"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignContent: "center",
+                                    color: colors.text.default,
+                                    py: "1rem",
+                                    "&:hover": {
+                                        color: colors.secondary.main,
+                                        cursor: "pointer",
+                                    },
+                                }}
+                            >
+                                <Typography variant="h6">Courses</Typography>
+                            </Button >
+                            <Button
+                                fullWidth
+                                onClick={() => { navigate("/teachers"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignContent: "center",
+                                    color: colors.text.default,
+                                    py: "1rem",
+                                    "&:hover": {
+                                        color: colors.secondary.main,
+                                        cursor: "pointer",
+                                    },
+                                }}
+                            >
+                                <Typography variant="h6">Teachers</Typography>
+                            </Button >
+                            <Button
+                                fullWidth
+                                onClick={() => { navigate("/contact"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignContent: "center",
+                                    color: colors.text.default,
+                                    py: "1rem",
+                                    "&:hover": {
+                                        color: colors.secondary.main,
+                                        cursor: "pointer",
+                                    },
+                                }}
+                            >
+                                <Typography variant="h6">Contact</Typography>
+                            </Button >
+
+                            {
+                                isAuth ?
+                                    <IconButton onClick={() => {
+                                        navigate(`students/${user._id
+                                            }`); setIsMobileMenuToggled(!isMobileMenuToggled)
+                                    }}>
+                                        {/* I guess */}
+                                        <Avatar src={`http://localhost:3001/assets/${user.imgPath}`} />
+                                    </IconButton >
+                                    :
+                                    <IconButton onClick={() => { navigate("/login"); setIsMobileMenuToggled(!isMobileMenuToggled) }}>
+                                        <Login />
+                                    </IconButton>
+                            }
+
+                            <IconButton
+                                onClick={() => { dispatch(setMode()); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                            >
+                                {theme.palette.mode === "dark" ? (
+                                    <LightMode sx={{ fontSize: "28px" }} />
+                                ) : (
+                                    <DarkMode sx={{ fontSize: "28px" }} />
+                                )}
+                            </IconButton>
+                        </Box >
+                    </Box >
+                )
+            }
         </Box >
     )
 }

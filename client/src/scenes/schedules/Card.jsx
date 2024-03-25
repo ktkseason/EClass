@@ -36,16 +36,17 @@ export default function Card({ schedule }) {
                     justifyContent="start"
                     gap="1rem"
                     alignItems="center"
+                    marginY="1rem"
                 >
                     <Avatar
                         sx={{
                             width: "36px",
-                            height: "36px"
+                            height: "36px",
                         }}
                         src={`http://localhost:3001/assets/${schedule.teacherImgPath}`}
                     />
                     <Box>
-                        <Typography variant="h6" color="primary">{schedule.teacherFirstName} {schedule.teacherLastName}</Typography>
+                        <Typography variant="h6" color="secondary">{schedule.teacherFirstName} {schedule.teacherLastName}</Typography>
                     </Box>
                 </Box>
             </Box>
@@ -54,7 +55,7 @@ export default function Card({ schedule }) {
 
             <Box width="100%" marginY="1rem">
                 <Box display="flex" justifyContent="space-between" alignItems="center" gap="1rem" marginBottom="0.5rem">
-                    <Typography variant="h6" fontWeight="bold" color={colors.primary.light}>{format(schedule.startDate, "MMM d, y")}</Typography>
+                    <Typography variant="h6" fontWeight="bold" color={colors.text.default}>{format(schedule.startDate, "MMM d, y")}</Typography>
                     <Typography fontWeight="bold" color={colors.text.default}>{schedule.time}</Typography>
                 </Box>
                 <Typography fontSize="12px" fontWeight="bold" color={colors.primary.main} marginBottom="1rem">{schedule.location}.</Typography>
@@ -69,10 +70,10 @@ export default function Card({ schedule }) {
                     fontSize: "14px",
                     paddingY: "1rem",
                     borderRadius: "7px",
-                    backgroundColor: `${colors.secondary.main}`,
+                    backgroundColor: colors.secondary.main,
                     fontWeight: "bold",
-                    color: `${colors.text.btn}`,
-                    "&:hover": { backgroundColor: `${colors.secondary.light}` }
+                    color: colors.text.btn,
+                    "&:hover": { backgroundColor: colors.secondary.light }
                 }}
             >Register</Button>
         </Box>

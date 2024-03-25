@@ -101,9 +101,9 @@ export default function Form() {
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {(Array.isArray(levels) ? levels.map(({ title }) => ([title])) : Object.entries(levels)).map(([title]) => {
+                                {(Array.isArray(levels) ? levels.map(({ _id, title }) => ([_id, title])) : Object.entries(levels)).map(([_id, title]) => {
                                     return (
-                                        <MenuItem key={title} value={title}>
+                                        <MenuItem key={_id} value={title}>
                                             {title}
                                         </MenuItem>
                                     )

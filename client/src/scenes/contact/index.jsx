@@ -24,40 +24,40 @@ export default function Contact() {
                 alignItems="center"
                 gap="2.7rem"
             >
-                <Typography variant="h3" textTransform="uppercase" textAlign="center" color={colors.primary.main} fontWeight="bold">Get in touch</Typography>
+                <Typography variant="h4" textTransform="uppercase" textAlign="center" color={colors.primary.main} fontWeight="bold">Get in touch</Typography>
                 <Box width="100%" display="flex" justifyContent="space-evenly" alignItems="start" gap="2rem" flexWrap="wrap">
                     <Box width={isNonMobile ? "30rem" : "15rem"}>
-                        <Typography marginBottom="1.4rem" variant="h5" fontWeight="bold" color={colors.text.default}>Leave what you think about <span style={{ color: `${colors.primary.main}` }}>EClass</span></Typography>
+                        <Typography marginBottom="1.4rem" variant="h5" fontWeight="bold" color={colors.text.default}>Leave what you think about <span style={{ color: colors.primary.main }}>EClass</span></Typography>
                         <Form />
                     </Box>
                     <Box width={isNonMobile ? "30rem" : "15rem"}>
-                        <Typography marginBottom="1.4rem" variant="h5" fontWeight="bold" color={colors.text.default}>Contact Information</Typography>
+                        <Typography marginBottom="3rem" variant="h5" fontWeight="bold" color={colors.text.default}>Contact Information</Typography>
                         <Box display="flex" flexDirection="column" justifyContent="start" alignItems="start" gap="1.2rem">
                             <Box display="flex" justifyContent="start" alignItems="center" gap="1rem" color={colors.text.default}>
-                                <LocalPhoneIcon sx={{ color: `${colors.primary.light}`, fontSize: "24px" }} />
+                                <LocalPhoneIcon sx={{ color: colors.primary.light, fontSize: "24px" }} />
                                 <Typography variant="h6">+95 987654321</Typography>
                             </Box>
                             <Box display="flex" justifyContent="start" alignItems="center" gap="1rem" color={colors.text.default}>
-                                <EmailIcon sx={{ color: `${colors.primary.light}`, fontSize: "24px" }} />
+                                <EmailIcon sx={{ color: colors.primary.light, fontSize: "24px" }} />
                                 <Typography variant="h6">eclass@info.com</Typography>
                             </Box>
                             <Box display="flex" justifyContent="start" alignItems="center" gap="1rem" color={colors.text.default}>
-                                <BusinessIcon sx={{ color: `${colors.primary.light}`, fontSize: "24px" }} />
+                                <BusinessIcon sx={{ color: colors.primary.light, fontSize: "24px" }} />
                                 <Typography variant="h6">No. 6, Palm Str., Mayangone.</Typography>
                             </Box>
                         </Box>
                         <Box display="flex" marginTop="1.7rem" justifyContent="start" alignItems="center" gap="1rem">
                             <IconButton>
-                                <FacebookIcon sx={{ color: `${colors.primary.main}`, fontSize: "24px" }} />
+                                <FacebookIcon sx={{ color: colors.primary.main, fontSize: "24px" }} />
                             </IconButton>
                             <IconButton>
-                                <InstagramIcon sx={{ color: `${colors.primary.main}`, fontSize: "24px" }} />
+                                <InstagramIcon sx={{ color: colors.primary.main, fontSize: "24px" }} />
                             </IconButton>
                             <IconButton>
-                                <XIcon sx={{ color: `${colors.primary.main}`, fontSize: "24px" }} />
+                                <XIcon sx={{ color: colors.primary.main, fontSize: "24px" }} />
                             </IconButton>
                             <IconButton>
-                                <TelegramIcon sx={{ color: `${colors.primary.main}`, fontSize: "24px" }} />
+                                <TelegramIcon sx={{ color: colors.primary.main, fontSize: "24px" }} />
                             </IconButton>
                         </Box>
                         <Typography marginTop="1.7rem" color={colors.text.default}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et deserunt sapiente earum quaerat distinctio, aliquam odio consectetur sed eius excepturi! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem, rem.</Typography>
