@@ -66,7 +66,22 @@ export const readTest = async (req, res) => {
 
 export const readTestRandom = async (req, res) => {
     try {
-        res.status(200).json({ message: "I'll think about it." })
+        const tests = await Test.aggregate([
+            // {
+            //     $match: filterQuery,
+            // },
+            {
+                $addFields: {
+                    tmpOrder: { '$rand': {} },
+                },
+            },
+            {
+                $sort: {
+                    tmpOrder: 1,
+                },
+            },
+        ]).limit(5);
+        res.status(200).json(tests);
     } catch (err) {
         res.status(404).json({ error: err.message });
     }

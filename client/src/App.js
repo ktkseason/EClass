@@ -14,6 +14,10 @@ import Teachers from "scenes/teachers/index";
 import Contact from "scenes/contact/index";
 import Login from "scenes/login/index";
 import Profile from "scenes/profile/index";
+import TestWelcome from "scenes/test/index";
+import Test from "scenes/test/Test";
+import TimeUp from "scenes/test/TimeUp";
+import Result from "scenes/test/Result";
 
 export default function App() {
   const mode = useSelector((state) => state.mode);
@@ -35,7 +39,10 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={isAuth ? <Profile /> : <Login />} />
-            <Route path="/tests/welcome" element={isAuth ? <TestWelcome /> : <Login />} />
+            <Route path="/test/welcome/:id" element={isAuth ? <TestWelcome /> : <Login />} />
+            <Route path="/test/:id" element={isAuth ? <Test /> : <Login />} />
+            <Route path="/timeup/:id" element={isAuth ? <TimeUp /> : <Login />} />
+            <Route path="/result/:id/:score" element={isAuth ? <Result /> : <Login />} />
           </Routes>
           <Footer />
         </ThemeProvider>

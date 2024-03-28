@@ -43,7 +43,7 @@ export default function Schedules() {
                     "& > div, h4": { gridColumn: isNonMobile ? undefined : isBigMobile ? "span 2" : "span 4" },
                 }}
             >
-                {schedules && schedules.map((schedule) => <Card key={schedule._id} schedule={schedule} />)}
+                {schedules && schedules.map((schedule) => schedule.studentNumbers - schedule.registeredStudents.length && <Card key={schedule._id} schedule={schedule} />)}
             </Box>
         </Box>
     )

@@ -13,19 +13,20 @@ export default function Home() {
     const latestSchedule = useSelector(state => state.latestSchedule);
 
     useEffect(() => {
-        (async () => {
-            const response = await fetch("http://localhost:3001/schedules/latest", {
-                method: "GET",
-            });
-            const latestSchedule = await response.json();
-            if (latestSchedule) {
-                dispatch(
-                    setLatestSchedule({
-                        latestSchedule: latestSchedule,
-                    })
-                );
-            }
-        })();
+        if (!latestSchedule)
+            (async () => {
+                const response = await fetch("http://localhost:3001/schedules/latest", {
+                    method: "GET",
+                });
+                const latestSchedule = await response.json();
+                if (latestSchedule) {
+                    dispatch(
+                        setLatestSchedule({
+                            latestSchedule: latestSchedule,
+                        })
+                    );
+                }
+            })();
     }, []);
 
     return (

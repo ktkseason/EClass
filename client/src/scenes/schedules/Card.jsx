@@ -13,7 +13,7 @@ export default function Card({ schedule }) {
         <Box
             padding="1.5rem"
             borderRadius="15px"
-            backgroundColor={colors.secondary.dark}
+            border={`1px solid ${colors.secondary.main}`}
             display="flex"
             flexDirection="column"
             justifyContent="space-between"
@@ -63,7 +63,7 @@ export default function Card({ schedule }) {
                 <Typography color={colors.text.default}>{schedule.description}</Typography>
             </Box>
             <Button
-                onClick={() => { isAuth ? navigate("/tests/welcome") : navigate("/login") }}
+                onClick={() => { isAuth ? navigate(`/test/welcome/${schedule._id}`) : navigate("/login") }}
                 fullWidth
                 sx={{
                     textAlign: "center",
