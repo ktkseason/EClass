@@ -1,8 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography, FormControl, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLevels } from "state";
+import { setLevels, setTotalScore } from "state";
 
 export default function Test() {
     const navigate = useNavigate();
@@ -10,7 +10,6 @@ export default function Test() {
     const token = useSelector(state => state.token);
     const student = useSelector(state => state.user);
     const levels = useSelector(state => state.levels);
-    const { id } = useParams(); // schedule id
     const [tests, setTests] = useState(null);
     const [testCount, setTestCount] = useState(0);
     const [time, setTime] = useState(15);
@@ -26,7 +25,7 @@ export default function Test() {
             if (time < 0) {
                 clearInterval(intervalRef.current);
                 intervalRef.current = null;
-                navigate(`/timeup/${id}`);
+                navigate(`/timeup`);
             }
         }
     }
@@ -69,11 +68,16 @@ export default function Test() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (tests[testCount].answers[value].right) setScore(score + 10);
+        if (tests[testCount].answers[value].right) setScore(score + 25);
         if (testCount < tests.length - 1) {
             setTestCount(testCount + 1)
         } else {
             clearInterval(intervalRef.current);
+            dispatch(
+                setTotalScore({
+                    totalScore: score,
+                })
+            );
             levels.map(level => {
                 (score >= level.minScore && score <= level.maxScore) &&
                     (async () => {
@@ -90,7 +94,7 @@ export default function Test() {
                         );
                     })();
             });
-            navigate(`/survey/${id}/${score}`);
+            navigate(`/survey`);
         }
         setValue('');
     };

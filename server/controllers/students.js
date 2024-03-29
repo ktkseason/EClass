@@ -82,14 +82,13 @@ export const updateStudentTestResults = async (req, res) => {
         const updatedStudent = await Student.findByIdAndUpdate(
             id,
             {
-                testResults: [
-                    ...
-                    {
+                $push: {
+                    testResults: {
                         emotion,
                         prep,
                         score
                     }
-                ],
+                }
             },
             { new: true }
         );
@@ -114,9 +113,8 @@ export const updateStudentCoursesTaken = async (req, res) => {
         const updatedStudent = await Student.findByIdAndUpdate(
             id,
             {
-                testResults: [
-                    ...
-                    {
+                $push: {
+                    coursesTaken: {
                         scheduleId,
                         courseTitle,
                         courseLevel,
@@ -124,7 +122,7 @@ export const updateStudentCoursesTaken = async (req, res) => {
                         teacherLastName,
                         scheduleStartDate,
                     }
-                ]
+                }
             },
             { new: true }
         );

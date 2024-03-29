@@ -5,6 +5,7 @@ export default function Login() {
     const theme = useTheme();
     const colors = theme.palette;
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+
     return (
         <Box
             minHeight="92vh"

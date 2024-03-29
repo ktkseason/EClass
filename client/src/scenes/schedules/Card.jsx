@@ -1,13 +1,25 @@
 import { Box, Typography, useTheme, Avatar, Divider, Button } from "@mui/material";
 import { format } from "date-fns";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useNavigate } from "react-router-dom";
+import { setSchedule } from "state";
 
 export default function Card({ schedule }) {
+    const dispatch = useDispatch();
     const theme = useTheme();
     const colors = theme.palette;
     const navigate = useNavigate();
     const isAuth = Boolean(useSelector((state) => state.token));
+
+    const takeSchedule = () => {
+        dispatch(
+            setSchedule({
+                schedule: schedule,
+            })
+        );
+        navigate(`/test/welcome`);
+    }
 
     return (
         <Box
@@ -62,8 +74,18 @@ export default function Card({ schedule }) {
                 <Typography textAlign="center" border={`3px dashed ${colors.primary.main}`} borderRadius="7px" padding="1rem" variant="h5" color={colors.text.alt} fontWeight="medium" marginBottom="1.5rem">{schedule.studentNumbers - schedule.registeredStudents.length} Seats Left.</Typography>
                 <Typography color={colors.text.default}>{schedule.description}</Typography>
             </Box>
+            {/* This needed to check if the student logged in and if logged in, check if the student has already registered by taking out the courses he has taken, if so, student will not able to click the button. */}
             <Button
-                onClick={() => { isAuth ? navigate(`/test/welcome/${schedule._id}`) : navigate("/login") }}
+                onClick={() => {
+                    if (isAuth) {
+                        dispatch(
+                            setSchedule({
+                                schedule: schedule,
+                            })
+                        );
+                        navigate("/test/welcome");
+                    } else navigate("/login");
+                }}
                 fullWidth
                 sx={{
                     textAlign: "center",
@@ -76,6 +98,6 @@ export default function Card({ schedule }) {
                     "&:hover": { backgroundColor: colors.secondary.light }
                 }}
             >Register</Button>
-        </Box>
+        </Box >
     )
 }

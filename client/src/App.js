@@ -19,6 +19,7 @@ import Test from "scenes/test/Test";
 import TimeUp from "scenes/test/TimeUp";
 import Result from "scenes/test/Result";
 import Survey from "scenes/survey";
+import Welcome from "scenes/welcomeCourse";
 
 export default function App() {
   const mode = useSelector((state) => state.mode);
@@ -40,11 +41,12 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={isAuth ? <Profile /> : <Login />} />
-            <Route path="/test/welcome/:id" element={isAuth ? <TestWelcome /> : <Login />} />
-            <Route path="/test/:id" element={isAuth ? <Test /> : <Login />} />
-            <Route path="/timeup/:id" element={isAuth ? <TimeUp /> : <Login />} />
-            <Route path="/result/:id/:score" element={isAuth ? <Result /> : <Login />} />
-            <Route path="/survey/:id/:score" element={isAuth ? <Survey /> : <Login />} />
+            <Route path="/test/welcome" element={isAuth ? <TestWelcome /> : <Login />} />
+            <Route path="/test" element={isAuth ? <Test /> : <Login />} />
+            <Route path="/timeup" element={isAuth ? <TimeUp /> : <Login />} />
+            <Route path="/result" element={isAuth ? <Result /> : <Login />} />
+            <Route path="/survey" element={isAuth ? <Survey /> : <Login />} />
+            <Route path="/welcome" element={isAuth ? <Welcome /> : <Login />} />
           </Routes>
           <Footer />
         </ThemeProvider>

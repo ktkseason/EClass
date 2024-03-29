@@ -12,8 +12,8 @@ const initialState = {
     preps: [],
     schedules: [],
     students: [],
-    teachers: [],
-    tests: [],
+    schedule: null,
+    totalScore: 0,
 };
 
 export const authSlice = createSlice({
@@ -49,9 +49,21 @@ export const authSlice = createSlice({
         },
         setLevels: (state, action) => {
             state.levels = action.payload.levels;
-        }
+        },
+        setEmotions: (state, action) => {
+            state.emotions = action.payload.emotions;
+        },
+        setPreps: (state, action) => {
+            state.preps = action.payload.preps;
+        },
+        setSchedule: (state, action) => {
+            state.schedule = action.payload.schedule;
+        },
+        setTotalScore: (state, action) => {
+            state.totalScore = action.payload.totalScore;
+        },
     }
 });
 
-export const { setMode, setLogin, setLogout, setLatestSchedule, setTeachers, setCourses, setSchedules, setEduBackgrounds, setLevels } = authSlice.actions;
+export const { setMode, setLogin, setLogout, setLatestSchedule, setTeachers, setCourses, setSchedules, setEduBackgrounds, setLevels, setEmotions, setPreps, setSchedule, setTotalScore } = authSlice.actions;
 export default authSlice.reducer;

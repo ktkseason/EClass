@@ -121,22 +121,21 @@ export const updateScheduleRegisteredStudents = async (req, res) => {
     try {
         const { id } = req.params;
         const {
-            StudentId,
-            StudentFirstName,
-            StudentLastName,
+            studentId,
+            studentFirstName,
+            studentLastName,
         } = req.body;
 
         const updatedSchedule = await Schedule.findByIdAndUpdate(
             id,
             {
-                registeredStudents: [
-                    ...
-                    {
-                        StudentId,
-                        StudentFirstName,
-                        StudentLastName,
+                $push: {
+                    registeredStudents: {
+                        studentId,
+                        studentFirstName,
+                        studentLastName,
                     }
-                ]
+                }
             },
             { new: true }
         );

@@ -1,37 +1,71 @@
-import { Box, Button, TextField, Select, useTheme, useMediaQuery } from "@mui/material";
+import { Box, Button, Select, useTheme, useMediaQuery } from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { Formik } from "formik";
 import * as yup from "yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { setEmotions, setPreps } from "state";
 
 const validationSchema = yup.object().shape({
     emotion: yup.string().required("required"),
-    preps: yup.string().required("required"),
-    duration: yup.number().required("required"),
-    price: yup.number().required("required"),
-    description: yup.string().required("required"),
+    prep: yup.string().required("required"),
 });
 
 const initialValues = {
-    title: "",
-    level: "",
-    duration: "",
-    price: "",
-    description: ""
+    emotion: "",
+    prep: "",
 };
 
 export default function Form() {
-    const levels = useSelector(state => state.levels);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const score = useSelector(state => state.totalScore);
+    const emotions = useSelector(state => state.emotions);
+    const preps = useSelector(state => state.preps);
     const token = useSelector(state => state.token);
+    const student = useSelector(state => state.user);
     const theme = useTheme();
     const colors = theme.palette;
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
-    const handleFormSubmit = async (values, onSubmitProps) => {
+    useEffect(() => {
+        (async () => {
+            const response = await fetch("http://localhost:3001/emotions/", {
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const emotions = await response.json();
+            if (emotions) {
+                dispatch(
+                    setEmotions({
+                        emotions: emotions,
+                    })
+                );
+            }
+        })();
+        (async () => {
+            const response = await fetch("http://localhost:3001/preps/", {
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const preps = await response.json();
+            if (preps) {
+                dispatch(
+                    setPreps({
+                        preps: preps,
+                    })
+                );
+            }
+        })();
+    }, [])
+
+    const handleFormSubmit = async (values) => {
+        values = { ...values, score: score };
         const response = await fetch(
-            "http://localhost:3001/courses/create",
+            `http://localhost:3001/students/update/testResults/${student._id}`,
             {
                 method: "POST",
                 headers: {
@@ -42,7 +76,7 @@ export default function Form() {
             }
         );
         await response.json();
-        onSubmitProps.resetForm();
+        navigate(`/result`);
     };
 
     return (
@@ -65,43 +99,29 @@ export default function Form() {
                     <Box
                         display="grid"
                         gap="20px"
-                        gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                        gridTemplateColumns="repeat(2, minmax(0, 1fr))"
                         sx={{
-                            "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                            "& > div": { gridColumn: isNonMobile ? undefined : "span 2" },
                         }}
                     >
-
-                        <TextField
-                            label="Title"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.title}
-                            name="title"
-                            error={
-                                Boolean(touched.title) && Boolean(errors.title)
-                            }
-                            helperText={touched.title && errors.title}
-                            sx={{ gridColumn: "span 4" }}
-                        />
-
-                        <FormControl sx={{ gridColumn: "span 4" }}>
-                            <InputLabel id="demo-simple-select-helper-label">Level</InputLabel>
+                        <FormControl sx={{ gridColumn: "span 1" }}>
+                            <InputLabel id="demo-simple-select-helper-label">Preparation</InputLabel>
                             <Select
                                 labelId="demo-simple-select-helper-label"
                                 id="demo-simple-select-helper"
-                                label="Level"
+                                label="Preparation"
                                 onBlur={handleBlur}
                                 onChange={handleChange}
-                                value={values.level}
-                                name="level"
+                                value={values.prep}
+                                name="prep"
                                 error={
-                                    Boolean(touched.level) && Boolean(errors.level)
+                                    Boolean(touched.prep) && Boolean(errors.prep)
                                 }
                             >
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {(Array.isArray(levels) ? levels.map(({ _id, title }) => ([_id, title])) : Object.entries(levels)).map(([_id, title]) => {
+                                {(Array.isArray(preps) ? preps.map(({ _id, title }) => ([_id, title])) : Object.entries(preps)).map(([_id, title]) => {
                                     return (
                                         <MenuItem key={_id} value={title}>
                                             {title}
@@ -111,61 +131,48 @@ export default function Form() {
                             </Select>
                         </FormControl>
 
-                        <TextField
-                            label="Duration"
-                            type="number"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.duration}
-                            name="duration"
-                            error={
-                                Boolean(touched.duration) && Boolean(errors.duration)
-                            }
-                            helperText={touched.duration && errors.duration}
-                            sx={{ gridColumn: "span 2" }}
-                        />
-
-                        <TextField
-                            label="Price"
-                            type="number"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.price}
-                            name="price"
-                            error={
-                                Boolean(touched.price) && Boolean(errors.price)
-                            }
-                            helperText={touched.price && errors.price}
-                            sx={{ gridColumn: "span 2" }}
-                        />
-                        <TextField
-                            label="Description"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.description}
-                            name="description"
-                            error={
-                                Boolean(touched.description) && Boolean(errors.description)
-                            }
-                            helperText={touched.description && errors.description}
-                            sx={{ gridColumn: "span 4" }}
-                        />
+                        <FormControl sx={{ gridColumn: "span 1" }}>
+                            <InputLabel id="demo-simple-select-helper-label">Emotion</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                label="Emotion"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.emotion}
+                                name="emotion"
+                                error={
+                                    Boolean(touched.emotion) && Boolean(errors.emotion)
+                                }
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {(Array.isArray(emotions) ? emotions.map(({ _id, title }) => ([_id, title])) : Object.entries(emotions)).map(([_id, title]) => {
+                                    return (
+                                        <MenuItem key={_id} value={title}>
+                                            {title}
+                                        </MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
                     </Box>
 
                     <Box>
                         <Button
-                            fullWidth
                             type="submit"
                             sx={{
-                                m: "2rem 0",
-                                p: "1rem",
-                                backgroundColor: colors.primary.main,
-                                color: colors.background.default,
-                                "&:hover": { color: colors.primary.main },
+                                textAlign: "center",
+                                fontSize: "14px",
+                                padding: "1rem 2rem",
+                                borderRadius: "7px",
+                                backgroundColor: colors.secondary.main,
+                                fontWeight: "bold",
+                                color: colors.text.btn,
+                                "&:hover": { backgroundColor: colors.secondary.light }
                             }}
-                        >
-                            Create Course
-                        </Button>
+                        >Submit</Button>
                     </Box>
                 </form>
             )}

@@ -1,22 +1,14 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { useTheme } from "@emotion/react";
+import { useSelector } from "react-redux";
 
 export default function TestWelcome() {
     const navigate = useNavigate();
-    const { id } = useParams();
-    const [schedule, setSchedule] = useState({});
+    const schedule = useSelector(state => state.schedule);
     const theme = useTheme();
     const colors = theme.palette;
-
-    useEffect(() => {
-        (async () => {
-            const schedule = await fetch(`http://localhost:3001/schedules/${id}`);
-            setSchedule(await schedule.json());
-        })()
-    }, [])
 
     return (
         <Box
@@ -44,7 +36,7 @@ export default function TestWelcome() {
                     }}
                 >Go Back</Button>
                 <Button
-                    onClick={() => { navigate(`/test/${id}`) }}
+                    onClick={() => { navigate(`/test`) }}
                     sx={{
                         flex: 1,
                         textAlign: "center",

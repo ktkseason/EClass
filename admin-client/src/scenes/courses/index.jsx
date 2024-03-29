@@ -2,8 +2,10 @@ import { Box, Typography } from "@mui/material";
 import Header from "components/Header";
 import Form from "./Form";
 import GridTable from "./GridTable";
+import { useSelector } from "react-redux";
 
 export default function Courses() {
+    const levels = useSelector(state => state.levels);
 
     return (
         <Box m="10px 20px 20px 20px">
@@ -12,9 +14,9 @@ export default function Courses() {
                 <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }} color="secondary">
                     Create new Course.
                 </Typography>
-                <Form />
+                <Form levels={levels} />
             </Box>
-            <GridTable />
+            <GridTable levels={levels} />
         </Box>
     )
 }

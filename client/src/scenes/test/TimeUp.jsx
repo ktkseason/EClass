@@ -1,8 +1,7 @@
 import { Box, Typography, Button, useTheme } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function TimeUp() {
-    const { id } = useParams();
     const navigate = useNavigate();
     const theme = useTheme();
     const colors = theme.palette;
@@ -20,7 +19,7 @@ export default function TimeUp() {
         >
             <Typography variant="h1" fontWeight="bold" color="primary">Your time is up. I'll tell you why.</Typography>
             <Button
-                onClick={() => { navigate(`/test/${id}`) }}
+                onClick={() => { navigate(`/test`) }}
                 sx={{
                     textAlign: "center",
                     fontSize: "14px",

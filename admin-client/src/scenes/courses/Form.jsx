@@ -22,8 +22,7 @@ const initialValues = {
     description: ""
 };
 
-export default function Form() {
-    const levels = useSelector(state => state.levels);
+export default function Form({ levels }) {
     const token = useSelector(state => state.token);
     const theme = useTheme();
     const colors = theme.palette;

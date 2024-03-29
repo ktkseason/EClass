@@ -1,9 +1,13 @@
 import { Box, Typography, Button, useTheme } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Result() {
-    const { id, score } = useParams();
     const navigate = useNavigate();
+    const token = useSelector(state => state.token);
+    const student = useSelector(state => state.user);
+    const score = useSelector(state => state.totalScore);
+    const schedule = useSelector(state => state.schedule);
     const theme = useTheme();
     const colors = theme.palette;
 
@@ -20,8 +24,50 @@ export default function Result() {
         >
             <Typography variant="h1" fontWeight="bold" color="secondary">You are done with score {score}.</Typography>
             <Button
-                onClick={() => { navigate(`/welcome/${id}`) }}
-                // at welcome <= welcome to the course, the course will begin on {} at {} and {online}. classroom information will be sent to {user.email} so, stay tune. and call to action will be {back to home}
+                onClick={() => {
+                    (async () => {
+                        const values = {
+                            scheduleId: schedule._id,
+                            courseTitle: schedule.courseTitle,
+                            courseLevel: schedule.courseLevel,
+                            teacherFirstName: schedule.teacherFirstName,
+                            teacherLastName: schedule.teacherLastName,
+                            scheduleStartDate: schedule.startDate,
+                        };
+                        const response = await fetch(
+                            `http://localhost:3001/students/update/coursestaken/${student._id}`,
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Authorization": `Bearer ${token}`
+                                },
+                                body: JSON.stringify(values),
+                            }
+                        );
+                        await response.json();
+                    })();
+                    (async () => {
+                        const values = {
+                            studentId: student._id,
+                            studentFirstName: student.firstName,
+                            studentLastName: student.lastName
+                        };
+                        const response = await fetch(
+                            `http://localhost:3001/schedules/update/registeredStudents/${schedule._id}`,
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Authorization": `Bearer ${token}`
+                                },
+                                body: JSON.stringify(values),
+                            }
+                        );
+                        await response.json();
+                    })();
+                    navigate(`/welcome`);
+                }}
                 sx={{
                     textAlign: "center",
                     fontSize: "14px",
