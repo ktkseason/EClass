@@ -58,6 +58,7 @@ export const updateStudentLevel = async (req, res) => {
     try {
         const { id } = req.params;
         const { level } = req.body;
+
         const updatedStudent = await Student.findByIdAndUpdate(
             id,
             { level },

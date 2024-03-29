@@ -11,20 +11,21 @@ export default function GridTable() {
     const token = useSelector((state) => state.token);
 
     useEffect(() => {
-        (async () => {
-            const response = await fetch("http://localhost:3001/tests/", {
-                method: "GET",
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const tests = await response.json();
-            if (tests) {
-                dispatch(
-                    setTests({
-                        tests: tests,
-                    })
-                );
-            }
-        })();
+        if (!tests)
+            (async () => {
+                const response = await fetch("http://localhost:3001/tests/", {
+                    method: "GET",
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                const tests = await response.json();
+                if (tests) {
+                    dispatch(
+                        setTests({
+                            tests: tests,
+                        })
+                    );
+                }
+            })();
     }, [tests])
 
     const columns = [

@@ -20,7 +20,8 @@ export default function Result() {
         >
             <Typography variant="h1" fontWeight="bold" color="secondary">You are done with score {score}.</Typography>
             <Button
-                onClick={() => { navigate(`/test/${id}`) }}
+                onClick={() => { navigate(`/welcome/${id}`) }}
+                // at welcome <= welcome to the course, the course will begin on {} at {} and {online}. classroom information will be sent to {user.email} so, stay tune. and call to action will be {back to home}
                 sx={{
                     textAlign: "center",
                     fontSize: "14px",
@@ -31,7 +32,8 @@ export default function Result() {
                     color: colors.text.btn,
                     "&:hover": { backgroundColor: colors.secondary.light }
                 }}
-            >Retake Test</Button>
+            >Register</Button>
+            {/* This will later become checkout button which will redirect to payment options page and payment process. */}
         </Box>
     )
 }

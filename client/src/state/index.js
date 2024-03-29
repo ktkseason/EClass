@@ -46,9 +46,12 @@ export const authSlice = createSlice({
         },
         setEduBackgrounds: (state, action) => {
             state.eduBackgrounds = action.payload.eduBackgrounds;
+        },
+        setLevels: (state, action) => {
+            state.levels = action.payload.levels;
         }
     }
 });
 
-export const { setMode, setLogin, setLogout, setLatestSchedule, setTeachers, setCourses, setSchedules, setEduBackgrounds } = authSlice.actions;
+export const { setMode, setLogin, setLogout, setLatestSchedule, setTeachers, setCourses, setSchedules, setEduBackgrounds, setLevels } = authSlice.actions;
 export default authSlice.reducer;

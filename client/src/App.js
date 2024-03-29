@@ -18,6 +18,7 @@ import TestWelcome from "scenes/test/index";
 import Test from "scenes/test/Test";
 import TimeUp from "scenes/test/TimeUp";
 import Result from "scenes/test/Result";
+import Survey from "scenes/survey";
 
 export default function App() {
   const mode = useSelector((state) => state.mode);
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/test/:id" element={isAuth ? <Test /> : <Login />} />
             <Route path="/timeup/:id" element={isAuth ? <TimeUp /> : <Login />} />
             <Route path="/result/:id/:score" element={isAuth ? <Result /> : <Login />} />
+            <Route path="/survey/:id/:score" element={isAuth ? <Survey /> : <Login />} />
           </Routes>
           <Footer />
         </ThemeProvider>
