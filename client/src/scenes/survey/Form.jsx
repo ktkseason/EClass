@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { setEmotions, setPreps } from "state";
+import { setEmotions, setPreps, updateUser } from "state";
 
 const validationSchema = yup.object().shape({
     emotion: yup.string().required("required"),
@@ -75,7 +75,11 @@ export default function Form() {
                 body: JSON.stringify(values),
             }
         );
-        await response.json();
+        dispatch(
+            updateUser({
+                user: await response.json(),
+            })
+        );
         navigate(`/result`);
     };
 

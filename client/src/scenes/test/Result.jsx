@@ -1,8 +1,10 @@
 import { Box, Typography, Button, useTheme } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { updateUser } from "state";
 
 export default function Result() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const token = useSelector(state => state.token);
     const student = useSelector(state => state.user);
@@ -22,63 +24,91 @@ export default function Result() {
             alignItems="center"
             gap="4rem"
         >
-            <Typography variant="h3" fontWeight="bold" color="secondary">You are done with score {score}.</Typography>
-            <Button
-                onClick={() => {
-                    (async () => {
-                        const values = {
-                            scheduleId: schedule._id,
-                            courseTitle: schedule.courseTitle,
-                            courseLevel: schedule.courseLevel,
-                            teacherFirstName: schedule.teacherFirstName,
-                            teacherLastName: schedule.teacherLastName,
-                            scheduleStartDate: schedule.startDate,
-                        };
-                        const response = await fetch(
-                            `http://localhost:3001/students/update/coursestaken/${student._id}`,
-                            {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Authorization": `Bearer ${token}`
-                                },
-                                body: JSON.stringify(values),
-                            }
-                        );
-                        await response.json();
-                    })();
-                    (async () => {
-                        const values = {
-                            studentId: student._id,
-                            studentFirstName: student.firstName,
-                            studentLastName: student.lastName
-                        };
-                        const response = await fetch(
-                            `http://localhost:3001/schedules/update/registeredStudents/${schedule._id}`,
-                            {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Authorization": `Bearer ${token}`
-                                },
-                                body: JSON.stringify(values),
-                            }
-                        );
-                        await response.json();
-                    })();
-                    navigate(`/welcome`);
-                }}
-                sx={{
-                    textAlign: "center",
-                    fontSize: "14px",
-                    padding: "1rem 2rem",
-                    borderRadius: "7px",
-                    backgroundColor: colors.secondary.main,
-                    fontWeight: "bold",
-                    color: colors.text.btn,
-                    "&:hover": { backgroundColor: colors.secondary.light }
-                }}
-            >Register</Button>
+            <Box
+                maxWidth="30rem"
+                textAlign="center"
+            >
+                <Typography variant="h3" fontWeight="bold" color="secondary" marginBottom="1rem">Your score is {score}.</Typography>
+                {schedule.courseLevel !== student.level &&
+                    <Typography variant="h6" color={colors.text.alt}>We are sorry. The score of the test is not qualified for the course. Please try again.</Typography>
+                }
+            </Box>
+            {schedule.courseLevel === student.level ?
+                <Button
+                    onClick={() => {
+                        (async () => {
+                            const values = {
+                                scheduleId: schedule._id,
+                                courseTitle: schedule.courseTitle,
+                                courseLevel: schedule.courseLevel,
+                                teacherFirstName: schedule.teacherFirstName,
+                                teacherLastName: schedule.teacherLastName,
+                                scheduleStartDate: schedule.startDate,
+                            };
+                            const response = await fetch(
+                                `http://localhost:3001/students/update/coursestaken/${student._id}`,
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Authorization": `Bearer ${token}`
+                                    },
+                                    body: JSON.stringify(values),
+                                }
+                            );
+                            dispatch(
+                                updateUser({
+                                    user: await response.json(),
+                                })
+                            );
+                        })();
+                        (async () => {
+                            const values = {
+                                studentId: student._id,
+                                studentFirstName: student.firstName,
+                                studentLastName: student.lastName
+                            };
+                            const response = await fetch(
+                                `http://localhost:3001/schedules/update/registeredStudents/${schedule._id}`,
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Authorization": `Bearer ${token}`
+                                    },
+                                    body: JSON.stringify(values),
+                                }
+                            );
+                            await response.json();
+                        })();
+                        navigate(`/welcome`);
+                    }}
+                    sx={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        padding: "1rem 2rem",
+                        borderRadius: "7px",
+                        backgroundColor: colors.secondary.main,
+                        fontWeight: "bold",
+                        color: colors.text.btn,
+                        "&:hover": { backgroundColor: colors.secondary.light }
+                    }}
+                >Register</Button>
+                :
+                <Button
+                    onClick={() => { navigate(`/schedules`) }}
+                    sx={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        padding: "1rem 2rem",
+                        borderRadius: "7px",
+                        backgroundColor: colors.secondary.main,
+                        fontWeight: "bold",
+                        color: colors.text.btn,
+                        "&:hover": { backgroundColor: colors.secondary.light }
+                    }}
+                >Back To Schedules</Button>
+            }
             {/* This will later become checkout button which will redirect to payment options page and payment process. */}
         </Box>
     )

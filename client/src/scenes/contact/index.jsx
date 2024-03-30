@@ -1,4 +1,4 @@
-import { Box, Icon, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import BusinessIcon from '@mui/icons-material/Business';

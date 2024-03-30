@@ -37,7 +37,10 @@ export default function Nav() {
                     fontWeight="bold"
                     variant="h3"
                     color="primary"
-                    onClick={() => { navigate("/"); isMobileMenuToggled && setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                    onClick={() => {
+                        isMobileMenuToggled && setIsMobileMenuToggled(!isMobileMenuToggled);
+                        navigate("/");
+                    }}
                     sx={{
                         "&:hover": {
                             color: colors.secondary.main,
@@ -200,7 +203,10 @@ export default function Nav() {
 
                             <Button
                                 fullWidth
-                                onClick={() => { navigate("/about"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                onClick={() => {
+                                    setIsMobileMenuToggled(!isMobileMenuToggled);
+                                    navigate("/about");
+                                }}
                                 sx={{
                                     display: "flex",
                                     justifyContent: "center",
@@ -217,7 +223,10 @@ export default function Nav() {
                             </Button>
                             <Button
                                 fullWidth
-                                onClick={() => { navigate("/schedules"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                onClick={() => {
+                                    setIsMobileMenuToggled(!isMobileMenuToggled);
+                                    navigate("/schedules");
+                                }}
                                 sx={{
                                     display: "flex",
                                     justifyContent: "center",
@@ -234,7 +243,10 @@ export default function Nav() {
                             </Button>
                             <Button
                                 fullWidth
-                                onClick={() => { navigate("/courses"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                onClick={() => {
+                                    setIsMobileMenuToggled(!isMobileMenuToggled);
+                                    navigate("/courses");
+                                }}
                                 sx={{
                                     display: "flex",
                                     justifyContent: "center",
@@ -251,7 +263,10 @@ export default function Nav() {
                             </Button >
                             <Button
                                 fullWidth
-                                onClick={() => { navigate("/teachers"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                onClick={() => {
+                                    setIsMobileMenuToggled(!isMobileMenuToggled);
+                                    navigate("/teachers");
+                                }}
                                 sx={{
                                     display: "flex",
                                     justifyContent: "center",
@@ -268,7 +283,10 @@ export default function Nav() {
                             </Button >
                             <Button
                                 fullWidth
-                                onClick={() => { navigate("/contact"); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                onClick={() => {
+                                    setIsMobileMenuToggled(!isMobileMenuToggled);
+                                    navigate("/contact");
+                                }}
                                 sx={{
                                     display: "flex",
                                     justifyContent: "center",
@@ -287,20 +305,26 @@ export default function Nav() {
                             {
                                 isAuth ?
                                     <IconButton onClick={() => {
-                                        navigate(`students/${user._id
-                                            }`); setIsMobileMenuToggled(!isMobileMenuToggled)
+                                        setIsMobileMenuToggled(!isMobileMenuToggled);
+                                        navigate(`/profile`);
                                     }}>
                                         {/* I guess */}
                                         <Avatar src={`http://localhost:3001/assets/${user.imgPath}`} />
                                     </IconButton >
                                     :
-                                    <IconButton onClick={() => { navigate("/login"); setIsMobileMenuToggled(!isMobileMenuToggled) }}>
+                                    <IconButton onClick={() => {
+                                        setIsMobileMenuToggled(!isMobileMenuToggled);
+                                        navigate("/login");
+                                    }}>
                                         <Login />
                                     </IconButton>
                             }
 
                             <IconButton
-                                onClick={() => { dispatch(setMode()); setIsMobileMenuToggled(!isMobileMenuToggled) }}
+                                onClick={() => {
+                                    setIsMobileMenuToggled(!isMobileMenuToggled);
+                                    dispatch(setMode());
+                                }}
                             >
                                 {theme.palette.mode === "dark" ? (
                                     <LightMode sx={{ fontSize: "28px" }} />

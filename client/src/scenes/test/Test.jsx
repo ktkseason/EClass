@@ -2,7 +2,7 @@ import { Box, Button, Typography, FormControl, RadioGroup, FormControlLabel, Rad
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLevels, setTotalScore } from "state";
+import { setLevels, setTotalScore, updateUser } from "state";
 
 export default function Test() {
     const theme = useTheme();
@@ -94,6 +94,11 @@ export default function Test() {
                                 },
                                 body: JSON.stringify({ level: level.title }),
                             }
+                        );
+                        dispatch(
+                            updateUser({
+                                user: await response.json(),
+                            })
                         );
                     })();
             });
