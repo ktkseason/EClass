@@ -17,7 +17,7 @@ export default function TimeUp() {
             alignItems="center"
             gap="4rem"
         >
-            <Typography variant="h1" fontWeight="bold" color="primary">Your time is up. I'll tell you why.</Typography>
+            <Typography variant="h3" fontWeight="bold" color="primary">Your time is up. I'll tell you why.</Typography>
             <Button
                 onClick={() => { navigate(`/test`) }}
                 sx={{

@@ -22,7 +22,7 @@ export default function Result() {
             alignItems="center"
             gap="4rem"
         >
-            <Typography variant="h1" fontWeight="bold" color="secondary">You are done with score {score}.</Typography>
+            <Typography variant="h3" fontWeight="bold" color="secondary">You are done with score {score}.</Typography>
             <Button
                 onClick={() => {
                     (async () => {

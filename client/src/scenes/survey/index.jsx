@@ -11,6 +11,9 @@ export default function Survey() {
             minHeight="92vh"
             padding="1rem"
             paddingTop="5rem"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
         >
             <Box
                 width={isNonMobileScreens ? "50%" : "93%"}
@@ -20,7 +23,7 @@ export default function Survey() {
                 backgroundColor={colors.background.alt}
             >
                 <Typography fontWeight="bold" variant="h5" sx={{ mb: "1.5rem" }} color="primary">
-                    Survey Here.
+                    Please select these two boxes.
                 </Typography>
                 <Form />
             </Box>

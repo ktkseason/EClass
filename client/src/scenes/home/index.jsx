@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLatestSchedule } from "state";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 
 export default function Home() {
     const isNonMobile = useMediaQuery("(min-width: 800px)");
@@ -85,8 +86,13 @@ export default function Home() {
                     <Typography
                         fontWeight="bold"
                         textTransform="uppercase"
-                        marginBottom="2rem"
+                        marginBottom="0.3rem"
                     >{latestSchedule[0].courseDuration} months</Typography>
+                    <Typography
+                        fontWeight="medium"
+                        marginBottom="2rem"
+                        fontSize="12px"
+                    >Start on {format(latestSchedule[0].startDate, "MMM d, y")}</Typography>
                     <Typography
                         variant="h6"
                         padding="1rem 3rem"
@@ -96,11 +102,10 @@ export default function Home() {
                     >{latestSchedule[0].studentNumbers} Students Only</Typography>
                     <Button
                         onClick={() => navigate("/schedules")}
-                        fullWidth
                         sx={{
                             textAlign: "center",
                             fontSize: "14px",
-                            paddingY: "15px",
+                            padding: "1rem 2rem",
                             borderRadius: "7px",
                             backgroundColor: colors.secondary.main,
                             fontWeight: "bold",

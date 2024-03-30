@@ -157,23 +157,23 @@ export default function Form() {
                                 })}
                             </Select>
                         </FormControl>
-                    </Box>
-
-                    <Box>
                         <Button
                             type="submit"
                             sx={{
                                 textAlign: "center",
-                                fontSize: "14px",
-                                padding: "1rem 2rem",
+                                padding: "0.7rem 1.2rem",
                                 borderRadius: "7px",
-                                backgroundColor: colors.secondary.main,
+                                backgroundColor: colors.primary.main,
                                 fontWeight: "bold",
                                 color: colors.text.btn,
-                                "&:hover": { backgroundColor: colors.secondary.light }
+                                justifySelf: "end",
+                                gridColumn: "span 2",
+                                marginTop: "2rem",
+                                "&:hover": { backgroundColor: colors.primary.light }
                             }}
                         >Submit</Button>
                     </Box>
+
                 </form>
             )}
         </Formik>

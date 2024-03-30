@@ -1,10 +1,13 @@
+import { Box, Button, Typography, FormControl, RadioGroup, FormControlLabel, Radio, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Typography, FormControl, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLevels, setTotalScore } from "state";
 
 export default function Test() {
+    const theme = useTheme();
+    const colors = theme.palette;
+    const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const token = useSelector(state => state.token);
@@ -101,39 +104,91 @@ export default function Test() {
 
     return (
         <Box
-            paddingTop="5rem"
             minHeight="92vh"
+            padding="1rem"
+            paddingTop="5rem"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
         >
-            {Math.floor(time / 60)} : {time >= 60 ? time - 60 : time}
-            {tests &&
-                <Box>
-                    <Typography>{tests[testCount].question}</Typography>
+            <Box
+                width={isNonMobileScreens ? "50%" : "93%"}
+                p="2rem"
+                margin="auto"
+                borderRadius="15px"
+                backgroundColor={colors.background.alt}
+            >
+                <Box display="flex" justifyContent="space-between" alignItems="center" gap="1.5rem">
+                    <Typography fontWeight="medium" color={colors.text.default}>{testCount + 1} of {tests && tests.length} Questions</Typography>
+                    <Typography fontWeight="medium" color={colors.text.default}>{Math.floor(time / 60)} : {time >= 60 ? time - 60 : time}</Typography>
+                </Box>
+                {tests &&
+                    <Box
+                        marginTop="2rem"
+                    >
+                        <Typography variant="h5" color={colors.primary.light}>{tests[testCount].question}</Typography>
 
-                    <form onSubmit={handleSubmit}>
-                        <FormControl sx={{ m: 3 }} error={error} variant="standard">
-                            <RadioGroup
-                                aria-labelledby="demo-error-radios"
-                                name="test"
-                                value={value}
-                                onChange={handleRadioChange}
+                        <form onSubmit={handleSubmit}>
+                            <FormControl
+                                sx={{
+                                    margin: "2rem 1rem 0 1rem",
+                                    display: "grid",
+                                    gap: "2rem"
+                                }}
+                                error={error}
+                                variant="standard"
                             >
-                                {tests[testCount].answers && tests[testCount].answers.map((answer, key) => (
-                                    <FormControlLabel key={key} value={key} control={<Radio />} label={answer.answer} />
-                                ))}
-                            </RadioGroup>
-                            {value ?
-                                <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
-                                    Next
-                                </Button>
-                                :
-                                <Button sx={{ mt: 1, mr: 1 }} disabled>
-                                    Next
-                                </Button>
-                            }
-                        </FormControl>
-                    </form>
-                </Box >
-            }
-        </Box >
+                                <RadioGroup
+                                    aria-labelledby="demo-error-radios"
+                                    name="test"
+                                    value={value}
+                                    onChange={handleRadioChange}
+                                >
+                                    <Box
+                                        display="grid"
+                                        gap="20px"
+                                        gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+                                        sx={{
+                                            "& > *": { gridColumn: isNonMobileScreens ? undefined : "span 2" },
+                                        }}
+                                    >
+                                        {tests[testCount].answers && tests[testCount].answers.map((answer, key) => (
+                                            <FormControlLabel sx={{ gridColumn: "span 1" }} key={key} value={key} control={<Radio />} label={answer.answer} />
+                                        ))}
+                                    </Box>
+                                </RadioGroup>
+                                {value ?
+                                    <Button sx={{
+                                        textAlign: "center",
+                                        padding: "0.7rem 1.2rem",
+                                        borderRadius: "7px",
+                                        backgroundColor: colors.primary.main,
+                                        fontWeight: "bold",
+                                        color: colors.text.btn,
+                                        justifySelf: "end",
+                                        "&:hover": { backgroundColor: colors.primary.light }
+                                    }} type="submit">
+                                        Next
+                                    </Button>
+                                    :
+                                    <Button sx={{
+                                        textAlign: "center",
+                                        padding: "0.7rem 1.2rem",
+                                        borderRadius: "7px",
+                                        backgroundColor: colors.primary.main,
+                                        fontWeight: "bold",
+                                        color: colors.text.btn,
+                                        justifySelf: "end",
+                                        "&:hover": { backgroundColor: colors.primary.light }
+                                    }} disabled>
+                                        Next
+                                    </Button>
+                                }
+                            </FormControl>
+                        </form>
+                    </Box >
+                }
+            </Box >
+        </Box>
     )
 }
