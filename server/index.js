@@ -12,6 +12,7 @@ import { register } from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
 import courseRoutes from "./routes/courses.js";
 import { createTeacher, updateTeacher } from "./controllers/teachers.js";
+import { updateStudent } from "./controllers/students.js";
 import teacherRoutes from "./routes/teachers.js";
 import scheduleRoutes from "./routes/schedules.js";
 import testRoutes from "./routes/tests.js";
@@ -50,6 +51,7 @@ const upload = multer({ storage });
 
 /* Routes with files */
 app.post("/auth/register", upload.single("picture"), register);
+app.post("/students/update/:id", verifyToken, upload.single("picture"), updateStudent); // Student updates information.
 app.post("/teachers/create", verifyToken, upload.single("picture"), createTeacher);
 app.post("/teachers/update/:id", verifyToken, upload.single("picture"), updateTeacher);
 

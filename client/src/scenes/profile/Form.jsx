@@ -1,52 +1,96 @@
-import { Box, Button, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+    Box,
+    Button,
+    TextField,
+    useMediaQuery,
+    Typography,
+    useTheme,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select
+} from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setEduBackgrounds } from "state";
+import { useEffect } from "react";
+import { updateUser } from "state";
 
-const validationSchema = yup.object().shape({
-    firstName: yup.string().required("required"),
-    lastName: yup.string().required("required"),
-    email: yup.string().email("invalid email").required("required"),
-    phone: yup.string().required("required"),
-    employedYear: yup.number().required("required"),
-    birthYear: yup.number().required("required"),
-    picture: yup.string().required("required"),
-});
-
-const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    employedYear: "",
-    birthYear: "",
-    picture: "",
-};
-
-export default function Form() {
+export default function Form({ edit, setEdit }) {
+    const dispatch = useDispatch();
     const token = useSelector(state => state.token);
+    const student = useSelector(state => state.user);
+    const eduBackgrounds = useSelector(state => state.eduBackgrounds);
     const theme = useTheme();
     const colors = theme.palette;
     const isNonMobile = useMediaQuery("(min-width:600px)");
+
+    const validationSchema = yup.object().shape({
+        firstName: yup.string().required("required"),
+        lastName: yup.string().required("required"),
+        email: yup.string().email("invalid email").required("required"),
+        phone: yup.string().required("required"),
+        password: yup.string().required("required"),
+        birthYear: yup.number().required("required"),
+        eduBackground: yup.string().required("required"),
+        picture: yup.string().required("required"),
+    });
+
+    const initialValues = {
+        firstName: student.firstName,
+        lastName: student.lastName,
+        email: student.email,
+        phone: student.phone,
+        password: student.password,
+        birthYear: student.birthYear,
+        eduBackground: student.eduBackground,
+        picture: student.imgPath,
+    };
+
+    useEffect(() => {
+        (async () => {
+            const response = await fetch("http://localhost:3001/eduBackgrounds/", {
+                method: "GET",
+            });
+            const eduBackgrounds = await response.json();
+            if (eduBackgrounds) {
+                dispatch(
+                    setEduBackgrounds({
+                        eduBackgrounds: eduBackgrounds,
+                    })
+                );
+            }
+        })();
+    }, []);
 
     const handleFormSubmit = async (values, onSubmitProps) => {
         const formData = new FormData();
         for (let value in values) {
             formData.append(value, values[value]);
         }
-        formData.append("imgPath", values.picture.name);
+        formData.append("imgPath", values.picture.name || values.picture);
         const response = await fetch(
-            "http://localhost:3001/teachers/create",
+            `http://localhost:3001/students/update/${student._id}`,
             {
                 method: "POST",
                 headers: { Authorization: `Bearer ${token}` },
                 body: formData,
             }
         );
-        await response.json();
-        onSubmitProps.resetForm();
+        const user = await response.json();
+
+        if (user) {
+            dispatch(
+                updateUser({
+                    user: user,
+                })
+            );
+        }
+
+        setEdit(!edit);
     };
 
     return (
@@ -98,49 +142,39 @@ export default function Form() {
                             sx={{ gridColumn: "span 2" }}
                         />
                         <TextField
-                            label="Employed Year"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.employedYear}
-                            name="employedYear"
-                            error={Boolean(touched.employedYear) && Boolean(errors.employedYear)}
-                            helperText={touched.employedYear && errors.employedYear}
-                            sx={{ gridColumn: "span 1" }}
-                        />
-                        <TextField
                             label="Birth Year"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.birthYear}
                             name="birthYear"
-                            error={
-                                Boolean(touched.birthYear) && Boolean(errors.birthYear)
-                            }
+                            error={Boolean(touched.birthYear) && Boolean(errors.birthYear)}
                             helperText={touched.birthYear && errors.birthYear}
-                            sx={{ gridColumn: "span 1" }}
-                        />
-
-                        <TextField
-                            label="Phone Number"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.phone}
-                            name="phone"
-                            error={Boolean(touched.phone) && Boolean(errors.phone)}
-                            helperText={touched.phone && errors.phone}
                             sx={{ gridColumn: "span 2" }}
                         />
 
-                        <TextField
-                            label="Email"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.email}
-                            name="email"
-                            error={Boolean(touched.email) && Boolean(errors.email)}
-                            helperText={touched.email && errors.email}
-                            sx={{ gridColumn: "span 4" }}
-                        />
+                        <FormControl sx={{ gridColumn: "span 2" }}>
+                            <InputLabel id="demo-simple-select-helper-label">Education Background</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                label="Education Background"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.eduBackground}
+                                name="eduBackground"
+                                error={
+                                    Boolean(touched.eduBackground) && Boolean(errors.eduBackground)
+                                }
+                            >
+                                {(Array.isArray(eduBackgrounds) ? eduBackgrounds.map(({ _id, title }) => ([_id, title])) : Object.entries(eduBackgrounds)).map(([_id, title]) => {
+                                    return (
+                                        <MenuItem key={_id} value={title}>
+                                            {title}
+                                        </MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
 
                         <Box
                             gridColumn="span 4"
@@ -165,10 +199,10 @@ export default function Form() {
                                     >
                                         <input {...getInputProps()} />
                                         {!values.picture ? (
-                                            <p style={{ textAlign: "center", margin: 0, padding: 0 }}>Add Picture Here</p>
+                                            <p>Add Picture Here</p>
                                         ) : (
                                             <Box display="flex" justifyContent="space-between" alignItems="center">
-                                                <Typography>{values.picture.name}</Typography>
+                                                <Typography>{values.picture.name || values.picture}</Typography>
                                                 <EditOutlinedIcon />
                                             </Box>
                                         )}
@@ -177,6 +211,26 @@ export default function Form() {
                             </Dropzone>
                         </Box>
 
+                        <TextField
+                            label="Phone"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.phone}
+                            name="phone"
+                            error={Boolean(touched.phone) && Boolean(errors.phone)}
+                            helperText={touched.phone && errors.phone}
+                            sx={{ gridColumn: "span 4" }}
+                        />
+                        <TextField
+                            label="Email"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.email}
+                            name="email"
+                            error={Boolean(touched.email) && Boolean(errors.email)}
+                            helperText={touched.email && errors.email}
+                            sx={{ gridColumn: "span 4" }}
+                        />
 
                     </Box>
 
@@ -192,7 +246,7 @@ export default function Form() {
                                 "&:hover": { color: colors.primary.main },
                             }}
                         >
-                            Create Teacher
+                            Update Information
                         </Button>
                     </Box>
                 </form>

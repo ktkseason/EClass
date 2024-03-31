@@ -63,21 +63,19 @@ export default function Form() {
     const isRegister = pageType === "register";
 
     useEffect(() => {
-        if (!eduBackgrounds) {
-            (async () => {
-                const response = await fetch("http://localhost:3001/eduBackgrounds/", {
-                    method: "GET",
-                });
-                const eduBackgrounds = await response.json();
-                if (eduBackgrounds) {
-                    dispatch(
-                        setEduBackgrounds({
-                            eduBackgrounds: eduBackgrounds,
-                        })
-                    );
-                }
-            })();
-        }
+        (async () => {
+            const response = await fetch("http://localhost:3001/eduBackgrounds/", {
+                method: "GET",
+            });
+            const eduBackgrounds = await response.json();
+            if (eduBackgrounds) {
+                dispatch(
+                    setEduBackgrounds({
+                        eduBackgrounds: eduBackgrounds,
+                    })
+                );
+            }
+        })();
     }, []);
 
     const register = async (values, onSubmitProps) => {
@@ -186,7 +184,7 @@ export default function Form() {
                                     sx={{ gridColumn: "span 2" }}
                                 />
 
-                                <FormControl sx={{ gridColumn: "span 4" }}>
+                                <FormControl sx={{ gridColumn: "span 2" }}>
                                     <InputLabel id="demo-simple-select-helper-label">Education Background</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-helper-label"
@@ -200,16 +198,13 @@ export default function Form() {
                                             Boolean(touched.eduBackground) && Boolean(errors.eduBackground)
                                         }
                                     >
-                                        <MenuItem value="">
-                                            <em>None</em>
-                                        </MenuItem>
                                         {(Array.isArray(eduBackgrounds) ? eduBackgrounds.map(({ _id, title }) => ([_id, title])) : Object.entries(eduBackgrounds)).map(([_id, title]) => {
                                             return (
                                                 <MenuItem key={_id} value={title}>
                                                     {title}
                                                 </MenuItem>
                                             )
-                                        })} // some bug here
+                                        })}
                                     </Select>
                                 </FormControl>
 
@@ -259,7 +254,8 @@ export default function Form() {
                                     sx={{ gridColumn: "span 4" }}
                                 />
                             </>
-                        )}
+                        )
+                        }
 
                         <TextField
                             label="Email"

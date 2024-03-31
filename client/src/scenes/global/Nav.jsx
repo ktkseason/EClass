@@ -138,7 +138,6 @@ export default function Nav() {
                     {
                         isAuth ?
                             <IconButton onClick={() => navigate("/profile")}>
-                                {/* I guess */}
                                 <Avatar
                                     sx={{
                                         width: "24px",

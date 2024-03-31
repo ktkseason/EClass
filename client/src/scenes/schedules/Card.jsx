@@ -11,15 +11,7 @@ export default function Card({ schedule }) {
     const colors = theme.palette;
     const navigate = useNavigate();
     const isAuth = Boolean(useSelector((state) => state.token));
-
-    const takeSchedule = () => {
-        dispatch(
-            setSchedule({
-                schedule: schedule,
-            })
-        );
-        navigate(`/test/welcome`);
-    }
+    const student = useSelector(state => state.user);
 
     return (
         <Box
@@ -74,30 +66,60 @@ export default function Card({ schedule }) {
                 <Typography textAlign="center" border={`3px dashed ${colors.primary.main}`} borderRadius="7px" padding="1rem" variant="h5" color={colors.text.alt} fontWeight="medium" marginBottom="1.5rem">{schedule.studentNumbers - schedule.registeredStudents.length} Seats Left.</Typography>
                 <Typography color={colors.text.default}>{schedule.description}</Typography>
             </Box>
-            {/* This needed to check if the student logged in and if logged in, check if the student has already registered by taking out the courses he has taken, if so, student will not able to click the button. */}
-            <Button
-                onClick={() => {
-                    if (isAuth) {
+
+            {isAuth ? student.coursesTaken.filter(course => course.scheduleId === schedule._id)[0] ?
+                (<Button
+                    disabled
+                    fullWidth
+                    sx={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        paddingY: "1rem",
+                        borderRadius: "7px",
+                        backgroundColor: colors.secondary.main,
+                        fontWeight: "bold",
+                        color: colors.text.btn,
+                        "&:hover": { backgroundColor: colors.secondary.light }
+                    }}
+                >Register</Button>)
+                :
+                (<Button
+                    onClick={() => {
                         dispatch(
                             setSchedule({
                                 schedule: schedule,
                             })
                         );
                         navigate("/test/welcome");
-                    } else navigate("/login");
-                }}
-                fullWidth
-                sx={{
-                    textAlign: "center",
-                    fontSize: "14px",
-                    paddingY: "1rem",
-                    borderRadius: "7px",
-                    backgroundColor: colors.secondary.main,
-                    fontWeight: "bold",
-                    color: colors.text.btn,
-                    "&:hover": { backgroundColor: colors.secondary.light }
-                }}
-            >Register</Button>
+                    }}
+                    fullWidth
+                    sx={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        paddingY: "1rem",
+                        borderRadius: "7px",
+                        backgroundColor: colors.secondary.main,
+                        fontWeight: "bold",
+                        color: colors.text.btn,
+                        "&:hover": { backgroundColor: colors.secondary.light }
+                    }}
+                >Register</Button>)
+                :
+                (<Button
+                    onClick={() => navigate("/login")}
+                    fullWidth
+                    sx={{
+                        textAlign: "center",
+                        fontSize: "14px",
+                        paddingY: "1rem",
+                        borderRadius: "7px",
+                        backgroundColor: colors.secondary.main,
+                        fontWeight: "bold",
+                        color: colors.text.btn,
+                        "&:hover": { backgroundColor: colors.secondary.light }
+                    }}
+                >Register</Button>)
+            }
         </Box >
     )
 }

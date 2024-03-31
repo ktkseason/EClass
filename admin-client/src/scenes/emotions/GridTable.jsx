@@ -30,7 +30,7 @@ export default function GridTable() {
 
     const columns = [
         { field: "title", headerName: "Title", flex: 1, editable: true },
-    ]
+    ];
 
     return (
         <Box>

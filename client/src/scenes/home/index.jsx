@@ -1,4 +1,4 @@
-import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Hidden, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLatestSchedule } from "state";
 import { useEffect } from "react";
@@ -56,65 +56,73 @@ export default function Home() {
                     gridRow="span 2"
                     backgroundColor={colors.secondary.dark}
                     color={colors.text.alt}
-                    padding="1rem 2rem"
+                    padding="1rem 2rem 2rem 2rem"
                     borderRadius="15px"
                     display="flex"
                     flexDirection="column"
                     alignItems="center"
+                    justifyContent="space-between"
+                    textAlign="center"
                 >
                     <Typography
+                        flex="1"
                         fontWeight="bold"
                         variant="h6"
                         color={colors.secondary.main}
                         textTransform="uppercase"
-                        marginBottom="4rem"
                     >Latest Schedule</Typography>
-                    <Typography
-                        fontWeight="bold"
-                        variant="h4"
-                        color={colors.primary.light}
-                        textTransform="uppercase"
-                        marginBottom="0.3rem"
-                    >{latestSchedule[0].courseTitle}</Typography>
-                    <Typography
-                        fontWeight="bold"
-                        variant="h6"
-                        color="primary"
-                        textTransform="uppercase"
-                        marginBottom="1rem"
-                    >{latestSchedule[0].courseLevel}</Typography>
-                    <Typography
-                        fontWeight="bold"
-                        textTransform="uppercase"
-                        marginBottom="0.3rem"
-                    >{latestSchedule[0].courseDuration} months</Typography>
-                    <Typography
-                        fontWeight="medium"
-                        marginBottom="2rem"
-                        fontSize="12px"
-                    >Start on {format(latestSchedule[0].startDate, "MMM d, y")}</Typography>
-                    <Typography
-                        variant="h6"
-                        padding="1rem 3rem"
-                        borderRadius="10px"
-                        border={`3px dashed ${colors.primary.main}`}
-                        marginBottom="3rem"
-                    >{latestSchedule[0].studentNumbers} Students Only</Typography>
-                    <Button
-                        onClick={() => navigate("/schedules")}
-                        sx={{
-                            textAlign: "center",
-                            fontSize: "14px",
-                            padding: "1rem 2rem",
-                            borderRadius: "7px",
-                            backgroundColor: colors.secondary.main,
-                            fontWeight: "bold",
-                            color: colors.text.btn,
-                            "&:hover": {
-                                backgroundColor: colors.secondary.light
-                            }
-                        }}
-                    > View More</Button>
+                    <Box
+                        display="flex"
+                        flexDirection="column"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        flex="4"
+                    >
+                        <Box>
+                            <Typography
+                                fontWeight="bold"
+                                variant="h4"
+                                color={colors.primary.light}
+                                textTransform="uppercase"
+                            >{latestSchedule[0].courseTitle}</Typography>
+                            <Typography
+                                fontWeight="bold"
+                                variant="h6"
+                                color="primary"
+                                textTransform="uppercase"
+                            >{latestSchedule[0].courseLevel}</Typography>
+                        </Box>
+                        <Box>
+                            <Typography
+                                fontWeight="bold"
+                                textTransform="uppercase"
+                            >{latestSchedule[0].courseDuration} months</Typography>
+                            <Typography
+                                fontWeight="medium"
+                                fontSize="12px"
+                            >Start on {format(latestSchedule[0].startDate, "MMM d, y")}</Typography>
+                        </Box>
+                        <Typography
+                            variant="h6"
+                            padding="1rem 2rem"
+                            borderRadius="10px"
+                            border={`3px dashed ${colors.primary.main}`}
+                        >{latestSchedule[0].studentNumbers} Students Only</Typography>
+                        <Button
+                            onClick={() => navigate("/schedules")}
+                            sx={{
+                                fontSize: "14px",
+                                padding: "1rem 2rem",
+                                borderRadius: "7px",
+                                backgroundColor: colors.secondary.main,
+                                fontWeight: "bold",
+                                color: colors.text.btn,
+                                "&:hover": {
+                                    backgroundColor: colors.secondary.light
+                                }
+                            }}
+                        > View More</Button>
+                    </Box>
                 </Box>
             }
 
@@ -131,6 +139,7 @@ export default function Home() {
                     borderRadius: `15px`,
                     padding: "1.3rem",
                     transition: "0.5s ease",
+                    overflow: "hidden",
                     "&:hover": {
                         backgroundColor: colors.secondary.dark,
                     },
@@ -144,7 +153,7 @@ export default function Home() {
                     fontWeight="bold"
                     variant="h6"
                     color={colors.primary.dark}
-                    marginBottom="2rem"
+                    marginBottom="1.5rem"
                     transition="0.5s ease"
                 >Meet our talented Teachers</Typography>
                 <Typography
@@ -169,6 +178,7 @@ export default function Home() {
                     borderRadius: `15px`,
                     padding: "1.3rem",
                     transition: "0.5s ease",
+                    overflow: "hidden",
                     "&:hover": {
                         backgroundColor: colors.primary.dark,
                     },
@@ -182,7 +192,7 @@ export default function Home() {
                     fontWeight="bold"
                     variant="h6"
                     color={colors.secondary.dark}
-                    marginBottom="2rem"
+                    marginBottom="1.5rem"
                     transition="0.5s ease"
                 >Explore out brilliant courses</Typography>
                 <Typography
