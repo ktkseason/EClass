@@ -40,7 +40,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 export default function Sidebar() {
     const theme = useTheme();
     const colors = theme.palette;
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(true);
     const [selected, setSelected] = useState("Dashboard");
 
     return (
@@ -101,8 +101,10 @@ export default function Sidebar() {
 
                         <Typography
                             variant="h6"
+                            fontSize="12px"
+                            fontWeight="bold"
                             color={colors.primary.light}
-                            sx={{ m: "15px 0 5px 10px" }}
+                            sx={{ m: "15px 0 5px 15px" }}
                         >
                             Manage
                         </Typography>
@@ -144,8 +146,10 @@ export default function Sidebar() {
 
                         <Typography
                             variant="h6"
+                            fontSize="12px"
+                            fontWeight="bold"
                             color={colors.primary.light}
-                            sx={{ m: "15px 0 5px 10px" }}
+                            sx={{ m: "15px 0 5px 15px" }}
                         >
                             Prefix
                         </Typography>
@@ -187,8 +191,10 @@ export default function Sidebar() {
 
                         <Typography
                             variant="h6"
+                            fontSize="12px"
+                            fontWeight="bold"
                             color={colors.primary.light}
-                            sx={{ m: "0 0 5px 10px" }}
+                            sx={{ m: "0 0 5px 15px" }}
                         >
                             Charts
                         </Typography>

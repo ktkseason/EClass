@@ -78,8 +78,6 @@ export const updateSchedule = async (req, res) => {
     try {
         const { id } = req.params;
         const {
-            courseId,
-            teacherId,
             startDate,
             time,
             location,
@@ -87,21 +85,9 @@ export const updateSchedule = async (req, res) => {
             description
         } = req.body;
 
-        const course = await Course.findById(courseId);
-        const teacher = await Teacher.findById(teacherId);
-
         const updatedSchedule = await Schedule.findByIdAndUpdate(
             id,
             {
-                courseId,
-                courseTitle: course.title,
-                courseLevel: course.level,
-                courseDuration: course.duration,
-                coursePrice: course.price,
-                teacherId,
-                teacherFirstName: teacher.firstName,
-                teacherLastName: teacher.lastName,
-                teacherImgPath: teacher.imgPath,
                 startDate,
                 time,
                 location,

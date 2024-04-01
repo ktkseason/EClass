@@ -19,7 +19,6 @@ export default function Profile() {
     const student = useSelector(state => state.user);
     const theme = useTheme();
     const colors = theme.palette;
-    const [pageSize, setPageSize] = useState(null);
     const [edit, setEdit] = useState(false);
 
     const courseTakenColumn = [
@@ -52,7 +51,11 @@ export default function Profile() {
                     }}
                 />
                 <Box>
-                    <Typography variant="h6" fontSize="12px" fontWeight="bold" color={colors.secondary.light}>{student.level} Student</Typography>
+                    {student.level ?
+                        <Typography variant="h6" fontSize="12px" fontWeight="bold" color={colors.secondary.light}>{student.level} Student</Typography>
+                        :
+                        <Typography variant="h6" fontSize="12px" fontWeight="bold" color={colors.secondary.light}>Level Undefined</Typography>
+                    }
                     <Box display="flex" justifyContent="center" alignItems="end" gap="0.5rem">
                         <Typography variant="h3" color="primary" fontWeight="bold">{student.firstName} {student.lastName}</Typography>
                         <Typography variant="h6" fontSize="12px" color={colors.text.default}>/ {student.birthYear} Born</Typography>
@@ -111,10 +114,16 @@ export default function Profile() {
                         getRowId={(row) => row.scheduleId}
                         rows={student.coursesTaken}
                         columns={courseTakenColumn}
-                        components={{ Toolbar: GridToolbar }}
-                        rowsPerPageOptions={[5, 10, 20]}
-                        pageSize={pageSize}
-                        onPageChange={(newPageSize) => setPageSize(newPageSize)}
+                        slots={{ toolbar: GridToolbar }}
+                        slotProps={{
+                            toolbar: {
+                                showQuickFilter: true,
+                            },
+                        }}
+                        initialState={{
+                            pagination: { paginationModel: { pageSize: 5 } },
+                        }}
+                        pageSizeOptions={[5, 10, 25]}
                     />
                 </Box>
             </Box>

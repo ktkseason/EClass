@@ -17,6 +17,7 @@ import Tests from "scenes/tests/index";
 import Courses from "scenes/courses/index";
 import Schedules from "scenes/schedules/index";
 import Students from "scenes/students/index";
+import Feedbacks from "scenes/feedbacks";
 
 export default function App() {
   const mode = useSelector((state) => state.mode);
@@ -30,7 +31,7 @@ export default function App() {
           <CssBaseline />
           {isAuth && <Sidebar />}
           <main className="content">
-            <Topbar />
+            {isAuth && <Topbar />}
             <Routes>
               <Route path="/" element={isAuth ? <Dashboard /> : <LoginPage />} />
               <Route path="/dashboard" element={isAuth ? <Dashboard /> : <Navigate to="/" />} />
@@ -38,6 +39,7 @@ export default function App() {
               <Route path="/courses" element={isAuth ? <Courses /> : <Navigate to="/" />} />
               <Route path="/schedules" element={isAuth ? <Schedules /> : <Navigate to="/" />} />
               <Route path="/students" element={isAuth ? <Students /> : <Navigate to="/" />} />
+              <Route path="/feedbacks" element={isAuth ? <Feedbacks /> : <Navigate to="/" />} />
               <Route path="/eduBackgrounds" element={isAuth ? <EduBackgrounds /> : <Navigate to="/" />} />
               <Route path="/emotions" element={isAuth ? <Emotions /> : <Navigate to="/" />} />
               <Route path="/preps" element={isAuth ? <Preps /> : <Navigate to="/" />} />

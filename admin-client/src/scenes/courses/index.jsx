@@ -8,7 +8,10 @@ export default function Courses() {
     const levels = useSelector(state => state.levels);
 
     return (
-        <Box m="10px 20px 20px 20px">
+        <Box
+            padding="1rem"
+            paddingTop="4rem"
+        >
             <Header title="Courses" subtitle="Managing the courses." />
             <Box width="100%">
                 <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }} color="secondary">

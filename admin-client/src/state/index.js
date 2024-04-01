@@ -13,6 +13,7 @@ const initialState = {
     students: [],
     teachers: [],
     tests: [],
+    feedbacks: [],
 };
 
 export const authSlice = createSlice({
@@ -29,7 +30,6 @@ export const authSlice = createSlice({
         setLogout: (state) => {
             state.user = null;
             state.token = null;
-            state.status = null;
         },
         setTeachers: (state, action) => {
             state.teachers = action.payload.teachers;
@@ -58,15 +58,11 @@ export const authSlice = createSlice({
         setStudents: (state, action) => {
             state.students = action.payload.students;
         },
-        setCourse: (state, action) => {
-            const updatedCourses = state.courses.map((course) => {
-                if (course._id === action.payload.course_id) return action.payload.course;
-                return course;
-            });
-            state.courses = updatedCourses;
-        }
+        setFeedbacks: (state, action) => {
+            state.feedbacks = action.payload.feedbacks;
+        },
     }
 });
 
-export const { setMode, setLogin, setLogout, setTeachers, setEduBackgrounds, setEmotions, setPreps, setLevels, setTests, setCourses, setSchedules, setStudents, setCourse } = authSlice.actions;
+export const { setMode, setLogin, setLogout, setTeachers, setEduBackgrounds, setEmotions, setPreps, setLevels, setTests, setCourses, setSchedules, setStudents, setFeedbacks } = authSlice.actions;
 export default authSlice.reducer;

@@ -33,6 +33,7 @@ export default function Form() {
         );
         await response.json();
         onSubmitProps.resetForm();
+        alert("Feedback sent.");
     };
 
     return (
