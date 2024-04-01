@@ -34,7 +34,7 @@ export default function GridTable() {
         { field: "firstName", headerName: 'First Name', editable: true },
         { field: "lastName", headerName: 'Last Name', editable: true },
         { field: "birthYear", headerName: 'Birth Year', editable: true },
-        { field: "email", headerName: 'Email', editable: true },
+        { field: "email", headerName: 'Email', flex: 1, editable: true },
         { field: "phone", headerName: 'Phone', editable: true },
         { field: "employedYear", headerName: 'Employed Year', editable: true },
         {
