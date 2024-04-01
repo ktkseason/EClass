@@ -19,6 +19,8 @@ import Schedules from "scenes/schedules/index";
 import Students from "scenes/students/index";
 import Feedbacks from "scenes/feedbacks";
 import Pie from "scenes/pie";
+import Bar from "scenes/bar";
+import Line from "scenes/line";
 
 export default function App() {
   const mode = useSelector((state) => state.mode);
@@ -47,6 +49,8 @@ export default function App() {
               <Route path="/levels" element={isAuth ? <Levels /> : <Navigate to="/" />} />
               <Route path="/tests" element={isAuth ? <Tests /> : <Navigate to="/" />} />
               <Route path="/pie" element={isAuth ? <Pie /> : <Navigate to="/" />} />
+              <Route path="/bar" element={isAuth ? <Bar /> : <Navigate to="/" />} />
+              <Route path="/line" element={isAuth ? <Line /> : <Navigate to="/" />} />
             </Routes>
           </main>
         </ThemeProvider>
