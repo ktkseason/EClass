@@ -10,6 +10,7 @@ export default function Result() {
     const student = useSelector(state => state.user);
     const score = useSelector(state => state.totalScore);
     const schedule = useSelector(state => state.schedule);
+    const levels = useSelector(state => state.levels);
     const theme = useTheme();
     const colors = theme.palette;
 
@@ -29,11 +30,11 @@ export default function Result() {
                 textAlign="center"
             >
                 <Typography variant="h3" fontWeight="bold" color="secondary" marginBottom="1rem">Your score is {score}.</Typography>
-                {schedule.courseLevel !== student.level &&
+                {levels.map(level => level.title === schedule.courseLevel && level.minScore).filter(score => score === 0 || score && score)[0] > levels.map(level => level.title === student.level && level.minScore).filter(score => score === 0 || score && score)[0] &&
                     <Typography variant="h6" color={colors.text.alt}>We are sorry. The score of the test is not qualified for the course. Please try again.</Typography>
                 }
             </Box>
-            {schedule.courseLevel === student.level ?
+            {levels.map(level => level.title === schedule.courseLevel && level.minScore).filter(score => score === 0 || score && score)[0] <= levels.map(level => level.title === student.level && level.minScore).filter(score => score === 0 || score && score)[0] ?
                 <Button
                     onClick={() => {
                         (async () => {

@@ -67,9 +67,6 @@ export const readTest = async (req, res) => {
 export const readTestRandom = async (req, res) => {
     try {
         const tests = await Test.aggregate([
-            // {
-            //     $match: filterQuery,
-            // },
             {
                 $addFields: {
                     tmpOrder: { '$rand': {} },
