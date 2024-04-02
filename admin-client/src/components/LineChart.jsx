@@ -60,8 +60,8 @@ export default function LineChart({ isDashboard = false }) {
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }}
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      colors={{ scheme: "nivo" }}
+      margin={{ top: 50, right: 200, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
