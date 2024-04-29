@@ -43,7 +43,6 @@ export default function GridTable() {
                 return (
                     <Box display="flex" justifyContent="space-between" alignItems="center" gap="1rem">
                         <Update {...{ topic: "students", params, rowId, setRowId, addition: "level/" }} />
-                        <Delete {...{ topic: "students", params, rowId, setRowId, addition: "level/" }} />
                     </Box>
                 )
             }

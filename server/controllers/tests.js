@@ -77,7 +77,7 @@ export const readTestRandom = async (req, res) => {
                     tmpOrder: 1,
                 },
             },
-        ]).limit(5);
+        ]).limit(20);
         res.status(200).json(tests);
     } catch (err) {
         res.status(404).json({ error: err.message });

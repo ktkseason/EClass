@@ -1,8 +1,36 @@
 import { Box, Button, Typography, FormControl, RadioGroup, FormControlLabel, Radio, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLevels, setTotalScore, updateUser } from "state";
+
+function Answers({ tests, testCount }) {
+    const shuffle = (array) => {
+        let currentIndex = array.length;
+
+        while (currentIndex != 0) {
+
+            let randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+
+    const answers = useMemo(() => shuffle(tests[testCount].answers), [tests, tests[testCount].answers]);
+    return (
+        <>
+            {
+                tests[testCount].answers &&
+                answers.map((answer, key) => (
+                    <FormControlLabel sx={{ gridColumn: "span 1" }} key={key} value={key} control={<Radio />} label={answer.answer} />
+                ))
+            }
+        </>
+    )
+}
 
 export default function Test() {
     const theme = useTheme();
@@ -15,7 +43,7 @@ export default function Test() {
     const levels = useSelector(state => state.levels);
     const [tests, setTests] = useState(null);
     const [testCount, setTestCount] = useState(0);
-    const [time, setTime] = useState(15);
+    const [time, setTime] = useState(300);
     const [value, setValue] = useState('');
     const [error, setError] = useState(false);
     const [score, setScore] = useState(0);
@@ -43,7 +71,6 @@ export default function Test() {
 
                 setTests(await tests.json());
             })();
-
 
         (async () => {
             const response = await fetch("http://localhost:3001/levels/", {
@@ -125,14 +152,14 @@ export default function Test() {
             >
                 <Box display="flex" justifyContent="space-between" alignItems="center" gap="1.5rem">
                     <Typography fontWeight="medium" color={colors.text.default}>{testCount + 1} of {tests && tests.length} Questions</Typography>
-                    <Typography fontWeight="medium" color={colors.text.default}>{Math.floor(time / 60)} : {time >= 60 ? time - 60 : time}</Typography>
+                    <Typography fontWeight="medium" color={colors.text.default}>{Math.floor(time / 60)} : {(time - (Math.floor(time / 60) * 60)) < 10 ? "0" : ""}{time - (Math.floor(time / 60) * 60)} </Typography>
                 </Box>
                 {tests &&
+
                     <Box
                         marginTop="2rem"
                     >
                         <Typography variant="h5" color={colors.primary.light}>{tests[testCount].question}</Typography>
-
                         <form onSubmit={handleSubmit}>
                             <FormControl
                                 sx={{
@@ -157,9 +184,7 @@ export default function Test() {
                                             "& > *": { gridColumn: isNonMobileScreens ? undefined : "span 2" },
                                         }}
                                     >
-                                        {tests[testCount].answers && tests[testCount].answers.map((answer, key) => (
-                                            <FormControlLabel sx={{ gridColumn: "span 1" }} key={key} value={key} control={<Radio />} label={answer.answer} />
-                                        ))}
+                                        <Answers tests={tests} testCount={testCount} />
                                     </Box>
                                 </RadioGroup>
                                 {value ?
