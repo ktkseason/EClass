@@ -8,7 +8,7 @@ const Line = () => {
       padding="1rem"
       paddingTop="5rem"
     >
-      <Header title="Line Chart" subtitle="Simple Line Chart" />
+      <Header title="Line Chart" subtitle="Total Soore of Student Analysis on Student Emotion and Prepration during Test." />
       <Box height="70vh">
         <LineChart />
       </Box>

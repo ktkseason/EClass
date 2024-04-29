@@ -9,7 +9,7 @@ export default function Bar() {
       padding="1rem"
       paddingTop="4rem"
     >
-      <Header title="Bar Chart" subtitle="Simple Bar Chart" />
+      <Header title="Bar Chart" subtitle="Student Level Analysis on Background Education." />
       <Box height="70vh">
         <BarChart />
       </Box>

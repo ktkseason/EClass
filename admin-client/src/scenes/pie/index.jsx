@@ -9,7 +9,7 @@ export default function Pie() {
       padding="1rem"
       paddingTop="4rem"
     >
-      <Header title="Pie Chart" subtitle="Simple Pie Chart" />
+      <Header title="Pie Chart" subtitle="Number of Student Analysis on Student Level." />
       <Box height="70vh">
         <PieChart />
       </Box>
