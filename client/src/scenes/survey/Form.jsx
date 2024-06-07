@@ -122,9 +122,6 @@ export default function Form() {
                                     Boolean(touched.prep) && Boolean(errors.prep)
                                 }
                             >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
                                 {(Array.isArray(preps) ? preps.map(({ _id, title }) => ([_id, title])) : Object.entries(preps)).map(([_id, title]) => {
                                     return (
                                         <MenuItem key={_id} value={title}>
@@ -149,9 +146,6 @@ export default function Form() {
                                     Boolean(touched.emotion) && Boolean(errors.emotion)
                                 }
                             >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
                                 {(Array.isArray(emotions) ? emotions.map(({ _id, title }) => ([_id, title])) : Object.entries(emotions)).map(([_id, title]) => {
                                     return (
                                         <MenuItem key={_id} value={title}>

@@ -46,7 +46,7 @@ export default function Dashboard() {
                             fontWeight="600"
                             sx={{ padding: "30px 30px 0 30px" }}
                         >
-                            Background Educations and Student Levels
+                            Student Levels and Number of Students
                         </Typography>
                         <Box height="250px" mt="-20px">
                             <PieChart isDashboard={true} />
